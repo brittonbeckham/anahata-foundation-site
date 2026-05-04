@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anahata Foundation</title>
+<meta name="description" content="Anahata Foundation" />
+<style>
+  :root {
+    --bg: #faf7f2;
+    --ink: #1f1d1a;
+    --muted: #6b665d;
+    --accent: #b8865b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  main {
+    max-width: 36rem;
+    text-align: center;
+  }
+  .mark {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 2rem;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    position: relative;
+  }
+  .mark::before, .mark::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    opacity: 0.55;
+  }
+  .mark::after { inset: 18px; opacity: 0.3; }
+  h1 {
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    margin-bottom: 1rem;
+  }
+  p {
+    color: var(--muted);
+    font-size: 1.125rem;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+  footer {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: var(--muted);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="mark" aria-hidden="true"></div>
+  <h1>Anahata Foundation</h1>
+  <p>A new chapter is taking shape.</p>
+</main>
+<footer>anahata.foundation</footer>
+</body>
+</html>
