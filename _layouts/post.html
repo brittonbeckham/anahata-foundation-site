@@ -8,7 +8,7 @@ layout: default
         <span class="num">—</span><span class="label">{{ page.tag | default: "Update" }}</span>
       </div>
       <div class="post-date" style="margin-bottom: var(--s-2);">{{ page.date | date: "%B %-d, %Y" }}</div>
-      <h1 class="h-display" style="margin-bottom: var(--s-4);">{{ page.title }}</h1>
+      <h1>{{ page.title }}</h1>
       {% if page.dek %}
         <p class="lede">{{ page.dek }}</p>
       {% endif %}
@@ -22,7 +22,7 @@ layout: default
       </div>
 
       <div style="margin-top: var(--s-7); padding-top: var(--s-4); border-top: 1px solid var(--rule); text-align: center;">
-        <a href="{{ '/updates/' | relative_url }}" style="font-style: italic; color: var(--ink-soft);">← All updates</a>
+        <a href="{{ '/updates/' | relative_url }}" class="link-subtle">← All updates</a>
       </div>
     </div>
   </div>

@@ -103,7 +103,7 @@ html, body {
   background: var(--gradient-paper);
   color: var(--ink);
   font-family: var(--font-serif);
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1.55;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -150,6 +150,7 @@ a:hover { color: var(--sandstone-deep); border-bottom-color: var(--sandstone); }
   color: var(--sandstone-deep);
   font-weight: 500;
   font-feature-settings: "lnum";
+  margin-bottom: var(--s-2);
 }
 
 .eyebrow-soft {
@@ -160,6 +161,89 @@ a:hover { color: var(--sandstone-deep); border-bottom-color: var(--sandstone); }
   color: var(--ink-mute);
   font-weight: 500;
   font-style: normal;
+  margin-bottom: var(--s-2);
+}
+
+/* =========================================================
+   Link styling utilities
+   ========================================================= */
+
+.link-cta {
+  font-style: italic;
+  color: var(--sandstone-deep);
+  border-bottom-color: var(--sandstone);
+}
+
+.link-subtle {
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  border-bottom: none;
+}
+
+.link-plain {
+  border-bottom: none;
+}
+
+/* =========================================================
+   Pull-quote attribution
+   ========================================================= */
+
+.pull-quote-cite {
+  display: block;
+  margin-top: var(--s-3);
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+/* =========================================================
+   Scope row metadata
+   ========================================================= */
+
+.scope-meta {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.06em;
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+.scope-row.current .scope-meta {
+  color: var(--sandstone-deep);
+}
+
+/* =========================================================
+   Invitation list (get-involved numbered rows)
+   ========================================================= */
+
+.invitation-list {
+  margin-top: var(--s-5);
+  border-top: 1px solid var(--rule);
+}
+.invitation-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--s-4);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+.invitation-numeral {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--sandstone-deep);
+  font-size: 2rem;
+}
+.invitation-label {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin-left: 0.5rem;
+}
+.invitation-body {
+  color: var(--ink-soft);
 }
 
 h1, h2, h3, h4, h5 {
@@ -171,18 +255,12 @@ h1, h2, h3, h4, h5 {
   line-height: 1.08;
 }
 
-.h-display {
-  font-size: clamp(1.85rem, 4.2vw, 3.6rem);
-  font-weight: 400;
-  letter-spacing: -0.012em;
-  line-height: 1.08;
-}
-
 h1, .h1 {
-  font-size: clamp(2rem, 5vw, 4.25rem);
+  font-size: clamp(2rem, 5vw, 3.6rem);
   font-weight: 400;
   letter-spacing: -0.012em;
   line-height: 1.06;
+  margin-bottom: var(--s-4);
 }
 
 h2, .h2 {
@@ -205,6 +283,11 @@ h4, .h4 {
   line-height: 1.3;
   text-transform: none;
 }
+
+/* Heading utilities — typographic line-break control & extra spacing */
+.heading-narrow { max-width: 14em; }
+.heading-wide { max-width: 18em; }
+.heading-spaced { margin-bottom: var(--s-6); }
 
 p {
   margin: 0 0 1.1em 0;
@@ -274,6 +357,7 @@ blockquote cite {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
+  color: var(--sandstone-deep);
 }
 
 .small-caps {
@@ -592,10 +676,10 @@ section {
 }
 .nav-links {
   display: flex;
-  gap: var(--s-5);
+  gap: var(--s-4);
   align-items: center;
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   letter-spacing: 0;
 }
 .nav-links a {
@@ -637,7 +721,7 @@ section {
   background: var(--gradient-cta);
   padding: 0.65rem 1.35rem;
   border-radius: 999px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   letter-spacing: 0.04em;
   font-weight: 500;
   font-style: normal;
@@ -893,6 +977,40 @@ section {
   font-size: 1.5rem;
   margin-bottom: var(--s-2);
 }
+@media (max-width: 800px) {
+  .threefold > div {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "icon title"
+      "para para";
+    column-gap: var(--s-2);
+    row-gap: var(--s-2);
+    align-items: center;
+  }
+  .threefold > div > .role-icon {
+    grid-area: icon;
+    margin-bottom: 0;
+    margin-left: -12px;
+  }
+  .threefold > div > h3 {
+    grid-area: title;
+    margin: 0;
+  }
+  .threefold > div > p {
+    grid-area: para;
+    margin: 0;
+  }
+}
+
+.role-icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: var(--s-3);
+  color: var(--sandstone);
+  opacity: 0.9;
+}
+.role-icon svg { width: 100%; height: 100%; }
 
 .pillars {
   display: grid;

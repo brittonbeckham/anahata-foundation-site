@@ -11,7 +11,7 @@ description: From the land — project milestones, seasonal ceremony notes, teac
         <span class="num">05</span><span class="label">Updates</span>
       </div>
       <div class="two-col-narrow" style="margin-bottom: var(--s-6);">
-        <h1 class="h-display">From the land.</h1>
+        <h1>From the Land and Vision Holders.</h1>
         <p class="lede">
           Project milestones, seasonal ceremony notes, teachings, and reflections &mdash;
           shared as the work unfolds.
@@ -25,11 +25,11 @@ description: From the land — project milestones, seasonal ceremony notes, teac
               <div class="post-date">{{ post.date | date: "%B %-d, %Y" }}</div>
               <div>
                 {% if post.tag %}<div class="post-tag">{{ post.tag }}</div>{% endif %}
-                <h3><a href="{{ post.url | relative_url }}" style="color: inherit;">{{ post.title }}</a></h3>
+                <h3><a href="{{ post.url | relative_url }}" class="link-plain">{{ post.title }}</a></h3>
                 <p>
                   {% if post.dek %}{{ post.dek }}{% else %}{{ post.excerpt | strip_html | truncatewords: 50 }}{% endif %}
                 </p>
-                <a href="{{ post.url | relative_url }}" style="font-style: italic; color: var(--ink-soft); font-size: 0.92rem;">Read the post &rarr;</a>
+                <a href="{{ post.url | relative_url }}" class="link-subtle">Read the post &rarr;</a>
               </div>
             </div>
           {% endfor %}
