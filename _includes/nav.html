@@ -1,0 +1,23 @@
+{% assign current = page.nav_current %}
+<nav class="nav" data-nav>
+  <div class="nav-inner">
+    <a href="{{ '/' | relative_url }}" class="nav-mark" data-nav-close>
+      <img src="{{ '/assets/media/anahata-wordmark-black.png' | relative_url }}" alt="Anahata" />
+      <span class="nav-foundation">
+        <span class="nav-foundation-label">Anahata Foundation</span>
+        <span class="nav-tagline">Healing &middot; Remembrance &middot; Awakening</span>
+      </span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+    <div class="nav-links" data-nav-links>
+      <a href="{{ '/the-project.html' | relative_url }}" class="nav-keep{% if current == 'project' %} is-current{% endif %}" data-nav-close>The Project</a>
+      <a href="{{ '/community.html' | relative_url }}" class="{% if current == 'community' %}is-current{% endif %}" data-nav-close>Community</a>
+      <a href="{{ '/vision-holders.html' | relative_url }}" class="{% if current == 'vision-holders' %}is-current{% endif %}" data-nav-close>Vision Holders</a>
+      <a href="{{ '/updates.html' | relative_url }}" class="{% if current == 'updates' %}is-current{% endif %}" data-nav-close>Updates</a>
+      <a href="{{ '/get-involved.html' | relative_url }}" class="cta{% if current == 'get-involved' %} is-current{% endif %}" data-nav-close>Get Involved</a>
+    </div>
+  </div>
+</nav>

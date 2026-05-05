@@ -1,3 +1,10 @@
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+vendor/
+Gemfile.lock
+_handoff/
 .DS_Store
 Thumbs.db
 *.log

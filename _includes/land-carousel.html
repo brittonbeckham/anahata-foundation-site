@@ -1,0 +1,63 @@
+{% assign base = '/assets/media' | relative_url %}
+<div class="land-carousel" tabindex="0" aria-roledescription="carousel" data-land-carousel>
+  <div class="land-carousel-frame">
+    <div class="land-carousel-track" data-land-track>
+      <figure class="land-slide" data-caption="Inside the cottonwood circle, lower meadow — May.">
+        <img src="{{ base }}/tree-circle-inside.jpg" alt="Inside the cottonwood circle, lower meadow — May." loading="eager" />
+      </figure>
+      <figure class="land-slide" data-caption="The river along the property's north edge.">
+        <img src="{{ base }}/river-1.jpg" alt="The river along the property's north edge." loading="eager" />
+      </figure>
+      <figure class="land-slide" data-caption="Where the water moves over granite and red sandstone.">
+        <img src="{{ base }}/river-2.jpg" alt="Where the water moves over granite and red sandstone." loading="lazy" />
+      </figure>
+      <figure class="land-slide" data-caption="The ravine — a cathedral of stone and shadow.">
+        <img src="{{ base }}/ravine.jpg" alt="The ravine — a cathedral of stone and shadow." loading="lazy" />
+      </figure>
+      <figure class="land-slide" data-caption="Stone circle on the upper meadow.">
+        <img src="{{ base }}/stone-circle.jpg" alt="Stone circle on the upper meadow." loading="lazy" />
+      </figure>
+      <figure class="land-slide" data-caption="Hoarfrost on the cottonwoods, January morning.">
+        <img src="{{ base }}/winter-trees.jpg" alt="Hoarfrost on the cottonwoods, January morning." loading="lazy" />
+      </figure>
+      <figure class="land-slide" data-caption="The cottonwood circle from outside, late spring.">
+        <img src="{{ base }}/tree-circle.jpg" alt="The cottonwood circle from outside, late spring." loading="lazy" />
+      </figure>
+      <figure class="land-slide" data-caption="Looking down the ravine toward the river.">
+        <img src="{{ base }}/ravine-2.jpg" alt="Looking down the ravine toward the river." loading="lazy" />
+      </figure>
+      <figure class="land-slide" data-caption="Slow water, cold from the foothills.">
+        <img src="{{ base }}/river-3.jpg" alt="Slow water, cold from the foothills." loading="lazy" />
+      </figure>
+      <figure class="land-slide" data-caption="The meadow seen from above.">
+        <img src="{{ base }}/chakra-path-aerial.jpg" alt="The meadow seen from above." loading="lazy" />
+      </figure>
+    </div>
+
+    <button class="land-arrow land-arrow-prev" aria-label="Previous photo" data-land-prev>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18 L9 12 L15 6"/>
+      </svg>
+    </button>
+    <button class="land-arrow land-arrow-next" aria-label="Next photo" data-land-next>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 6 L15 12 L9 18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="land-carousel-meta">
+    <div class="land-caption" data-land-caption></div>
+    <div class="land-counter">
+      <span class="land-counter-current" data-land-current>01</span>
+      <span class="land-counter-sep"> / </span>
+      <span class="land-counter-total" data-land-total>10</span>
+    </div>
+  </div>
+
+  <div class="land-dots" role="tablist" aria-label="Photo selector">
+    {% for i in (1..10) %}
+      <button class="land-dot" aria-label="Go to photo {{ i }}" role="tab" data-land-dot></button>
+    {% endfor %}
+  </div>
+</div>

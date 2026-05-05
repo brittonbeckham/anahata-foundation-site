@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<article id="post" data-screen-label="Update">
+  <div class="section">
+    <div class="shell-narrow">
+      <div class="page-marker">
+        <span class="num">—</span><span class="label">{{ page.tag | default: "Update" }}</span>
+      </div>
+      <div class="post-date" style="margin-bottom: var(--s-2);">{{ page.date | date: "%B %-d, %Y" }}</div>
+      <h1 class="h-display" style="margin-bottom: var(--s-4);">{{ page.title }}</h1>
+      {% if page.dek %}
+        <p class="lede">{{ page.dek }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="shell-narrow">
+      <div class="post-body">
+        {{ content }}
+      </div>
+
+      <div style="margin-top: var(--s-7); padding-top: var(--s-4); border-top: 1px solid var(--rule); text-align: center;">
+        <a href="{{ '/updates.html' | relative_url }}" style="font-style: italic; color: var(--ink-soft);">← All updates</a>
+      </div>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,50 @@
+---
+layout: default
+title: Updates
+nav_current: updates
+description: From the land — project milestones, seasonal ceremony notes, teachings, and reflections, shared as the work unfolds.
+---
+<section id="updates" data-screen-label="05 Updates">
+  <div class="section">
+    <div class="shell">
+      <div class="page-marker">
+        <span class="num">05</span><span class="label">Updates</span>
+      </div>
+      <div class="two-col-narrow" style="margin-bottom: var(--s-6);">
+        <h1 class="h-display">From the land.</h1>
+        <p class="lede">
+          Project milestones, seasonal ceremony notes, teachings, and reflections &mdash;
+          shared as the work unfolds.
+        </p>
+      </div>
+
+      <div>
+        {% if site.posts.size > 0 %}
+          {% for post in site.posts %}
+            <div class="post">
+              <div class="post-date">{{ post.date | date: "%B %-d, %Y" }}</div>
+              <div>
+                {% if post.tag %}<div class="post-tag">{{ post.tag }}</div>{% endif %}
+                <h3><a href="{{ post.url | relative_url }}" style="color: inherit;">{{ post.title }}</a></h3>
+                <p>
+                  {% if post.dek %}{{ post.dek }}{% else %}{{ post.excerpt | strip_html | truncatewords: 50 }}{% endif %}
+                </p>
+                <a href="{{ post.url | relative_url }}" style="font-style: italic; color: var(--ink-soft); font-size: 0.92rem;">Read the post &rarr;</a>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div style="padding: var(--s-6) 0; text-align: center; color: var(--ink-mute); font-style: italic;">
+            Updates begin once Scope I is underway. Subscribe below to receive them as they post.
+          </div>
+        {% endif %}
+      </div>
+
+      {% if site.posts.size > 0 %}
+        <div style="margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--rule); text-align: center; color: var(--ink-mute); font-style: italic; font-size: 0.95rem;">
+          Subscribe below to receive new updates as they post.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

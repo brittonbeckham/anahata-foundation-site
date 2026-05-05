@@ -1,0 +1,35 @@
+title: Anahata Foundation
+description: >-
+  A 501(c)(3) sanctuary in formation: healing, remembrance, and the awakening
+  of human consciousness on 46 acres outside Lyons, Colorado.
+url: "https://anahata.foundation"
+author: Anahata Foundation
+
+permalink: /updates/:title/
+
+exclude:
+  - _handoff
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - .gitignore
+
+include:
+  - CNAME
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
