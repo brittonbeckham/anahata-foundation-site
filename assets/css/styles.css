@@ -487,6 +487,17 @@ section {
   background: linear-gradient(180deg, rgba(26,22,18,0) 60%, rgba(26,22,18,0.25) 100%);
 }
 
+/* Fixed-background variant — image sits in the viewport as content scrolls past.
+   iOS Safari ignores background-attachment: fixed and falls back to scrolling
+   the image normally, which is acceptable degradation. */
+.bleed-image-fixed {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.bleed-image-fixed img { display: none; }
+
 /* =========================================================
    Wide editorial prose — heading on left, prose on right.
    For body sections that aren't the page intro.
@@ -821,7 +832,12 @@ section {
   max-height: 900px;
   width: 100%;
   overflow: hidden;
-  background: var(--ink);
+  background-color: var(--ink);
+  background-image: url('/assets/media/anahata-land.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 @media (max-width: 800px) {
   .hero { min-height: 560px; max-height: 720px; }
@@ -977,6 +993,19 @@ section {
   font-size: 1.5rem;
   margin-bottom: var(--s-2);
 }
+/* Threefold-specific: icons drift left into place as cards spread right — counter-motion for depth */
+@media (min-width: 801px) {
+  .threefold.stack-reveal > div .role-icon {
+    transform: translateX(90px);
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .threefold.stack-reveal > div:nth-child(2) .role-icon { transition-delay: 150ms; }
+  .threefold.stack-reveal > div:nth-child(3) .role-icon { transition-delay: 300ms; }
+  .threefold.stack-reveal.is-revealed > div .role-icon {
+    transform: translateX(0);
+  }
+}
+
 @media (max-width: 800px) {
   .threefold > div {
     display: grid;
@@ -1063,6 +1092,221 @@ section {
   margin-bottom: var(--s-2);
 }
 .pillar p { font-size: 0.95rem; color: var(--ink-soft); margin: 0; }
+
+/* =========================================================
+   Beginnings — paper-themed pillar-sized cards (home page)
+   ========================================================= */
+
+.beginnings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-4);
+}
+@media (max-width: 900px) { .beginnings { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .beginnings { grid-template-columns: 1fr; } }
+
+/* =========================================================
+   Generic reveal animations
+   .stack-reveal — children start stacked at first column's position,
+   then ease right to their grid columns with a small stagger.
+   Apply to any single-row grid container (4, 3, etc. children).
+   .page-opener-reveal — orchestrates page-marker / h1 / lede entrance
+   for top-of-page editorial openers.
+   ========================================================= */
+
+.stack-reveal.stack-reveal > * {
+  --stack-offset: 0;
+  translate: calc(-100% * var(--stack-offset) - var(--s-4) * var(--stack-offset)) 0;
+  opacity: 0;
+  transition:
+    translate 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.85s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+.stack-reveal.stack-reveal > *:nth-child(1) { --stack-offset: 0; z-index: 6; }
+.stack-reveal.stack-reveal > *:nth-child(2) { --stack-offset: 1; z-index: 5; transition-delay: 150ms; }
+.stack-reveal.stack-reveal > *:nth-child(3) { --stack-offset: 2; z-index: 4; transition-delay: 300ms; }
+.stack-reveal.stack-reveal > *:nth-child(4) { --stack-offset: 3; z-index: 3; transition-delay: 450ms; }
+.stack-reveal.stack-reveal > *:nth-child(5) { --stack-offset: 4; z-index: 2; transition-delay: 600ms; }
+.stack-reveal.stack-reveal > *:nth-child(6) { --stack-offset: 5; z-index: 1; transition-delay: 750ms; }
+.stack-reveal.stack-reveal.is-revealed > * {
+  translate: 0 0;
+  opacity: 1;
+}
+
+/* Disable .stack-reveal animation when its grid drops to multi-row layouts */
+@media (max-width: 800px) {
+  .threefold.stack-reveal.stack-reveal > * {
+    translate: 0 0;
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+}
+@media (max-width: 900px) {
+  .beginnings.stack-reveal.stack-reveal > * {
+    translate: 0 0;
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-reveal.stack-reveal > * {
+    translate: 0 0 !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}
+
+/* Page opener reveal — page-marker slides in from left, line draws,
+   title eases down, lede wipes in. Applied to the opener shell. */
+.page-opener-reveal .page-marker {
+  transform: translateX(-30px);
+  opacity: 0;
+  border-bottom-color: transparent;
+  position: relative;
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.7s ease;
+}
+.page-opener-reveal .page-marker::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--rule);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 500ms;
+}
+.page-opener-reveal h1 {
+  transform: translateY(-20px);
+  opacity: 0;
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 200ms,
+    opacity 0.7s ease 200ms;
+}
+.page-opener-reveal .lede {
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  transition:
+    clip-path 0.6s cubic-bezier(0.22, 1, 0.36, 1) 800ms,
+    opacity 0.4s ease 800ms;
+}
+.page-opener-reveal.is-revealed .page-marker {
+  transform: translateX(0);
+  opacity: 1;
+}
+.page-opener-reveal.is-revealed .page-marker::after {
+  transform: scaleX(1);
+}
+.page-opener-reveal.is-revealed h1 {
+  transform: translateY(0);
+  opacity: 1;
+}
+.page-opener-reveal.is-revealed .lede {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-opener-reveal .page-marker,
+  .page-opener-reveal h1,
+  .page-opener-reveal .lede {
+    transform: none !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+  .page-opener-reveal .page-marker::after {
+    transform: scaleX(1) !important;
+  }
+}
+
+.beginning-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--gradient-card-elevated);
+  border: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
+  border-radius: 6px;
+  padding: var(--s-4);
+  color: var(--ink);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.7) inset,
+    0 14px 30px -22px rgba(26,22,18,0.18),
+    0 2px 6px -3px rgba(26,22,18,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Diagonal sheen sweep on hover — from bottom-left off-card to top-right off-card.
+   Transition is defined on the :hover rule so the sweep only animates IN.
+   On mouse-out, the stripe snaps back to its rest position (off-card, invisible). */
+.beginning-card::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  background: linear-gradient(
+    45deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.65) 50%,
+    transparent 65%
+  );
+  transform: translate(-50%, 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+.beginning-card:hover::before {
+  transform: translate(50%, -50%);
+  transition: transform 1.3s cubic-bezier(0.25, 1, 0.5, 1) 120ms;
+}
+
+.beginning-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--sandstone);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.7) inset,
+    0 22px 40px -22px rgba(26,22,18,0.25),
+    0 4px 10px -3px rgba(26,22,18,0.08);
+}
+.beginning-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--sandstone-deep);
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+  font-feature-settings: "lnum";
+}
+.beginning-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  margin-bottom: var(--s-2);
+}
+.beginning-card p {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin: 0 0 var(--s-3) 0;
+  flex-grow: 1;
+}
+.beginning-meta {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: auto;
+  transition: color 0.3s ease;
+}
+.beginning-card:hover .beginning-meta { color: var(--sandstone-deep); }
 
 /* Scopes table */
 .scopes {
@@ -1644,6 +1888,11 @@ section[id] { scroll-margin-top: 70px; }
   justify-content: center;
   overflow: hidden;
   isolation: isolate;
+  background-image: url('/assets/media/winter-trees.jpg');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .closing-hero-img {
   position: absolute;
@@ -1673,6 +1922,7 @@ section[id] { scroll-margin-top: 70px; }
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: radial-gradient(ellipse at center, rgba(11,11,11,0.44) 0%, rgba(11,11,11,0.01) 70%);
 }
 .closing-hero-eyebrow {
   font-family: var(--font-display);
@@ -1680,7 +1930,7 @@ section[id] { scroll-margin-top: 70px; }
   font-size: 0.85rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: #ffffff;
   margin-bottom: var(--s-4);
   text-shadow: 0 1px 8px rgba(0,0,0,0.55), 0 0 18px rgba(0,0,0,0.4);
 }
@@ -1691,14 +1941,16 @@ section[id] { scroll-margin-top: 70px; }
   font-size: clamp(1.6rem, 3.5vw, 2.7rem);
   line-height: 1.28;
   letter-spacing: -0.005em;
-  color: #1a1410;
+  color: #ffffff;
   max-width: 22em;
   margin: 0 auto var(--s-7);
   text-wrap: balance;
   text-shadow:
-    0 1px 0 rgba(255,255,255,0.55),
-    0 0 18px rgba(255,255,255,0.45),
-    0 0 36px rgba(255,255,255,0.25);
+    0 1px 0 rgba(114, 113, 113, 0.35),
+    0 0 18px rgba(49, 49, 49, 0.45),
+    /**0 0 36px rgba(255,255,255,0.25),
+    0 0 28px rgba(180, 180, 180, 0.55),**/
+    0 6px 32px rgba(0,0,0,0.25);
 }
 .closing-hero-cards-label {
   font-family: var(--font-display);

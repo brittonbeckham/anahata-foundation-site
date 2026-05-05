@@ -80,7 +80,7 @@
         var y = Math.max(-80, Math.min(80, progress * 90));
         hero.style.transform = 'translate3d(0,' + y + 'px,0) scale(1.08)';
       }
-      document.querySelectorAll('.bleed-image').forEach(function (el) {
+      document.querySelectorAll('.bleed-image:not(.bleed-image-fixed)').forEach(function (el) {
         var img = el.querySelector('img');
         if (!img) return;
         var rect = el.getBoundingClientRect();
@@ -264,6 +264,27 @@
     go(0);
   }
 
+  // ---- Generic reveal-on-scroll observer ----
+  // Adds .is-revealed to any element with .stack-reveal or .page-opener-reveal
+  // when it enters the viewport. Fires once per element.
+  function initRevealObserver() {
+    var els = document.querySelectorAll('.stack-reveal, .page-opener-reveal');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('is-revealed'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    els.forEach(function (el) { observer.observe(el); });
+  }
+
   function ready(fn) {
     if (document.readyState !== 'loading') fn();
     else document.addEventListener('DOMContentLoaded', fn);
@@ -275,5 +296,6 @@
     initParallax();
     initLandCarousel();
     initInstallationsCarousel();
+    initRevealObserver();
   });
 })();
