@@ -501,9 +501,6 @@ section {
 /* Carousel card sits on its own light bg — keep body text ink-colored */
 .section-pine .ic-card p,
 .section-sandstone-deep .ic-card p { color: var(--ink); }
-.section-pine .pillar { border-top-color: rgba(244, 237, 225, 0.25); }
-.section-pine .pillar p { color: rgba(244, 237, 225, 0.78); }
-
 /* Carousel controls on dark sections — arrows, counter, dots, group labels */
 .section-pine .ic-arrow,
 .section-sandstone-deep .ic-arrow {
@@ -1347,30 +1344,8 @@ section .shell-narrow img.site-plan-img {
 }
 .role-icon svg { width: 100%; height: 100%; }
 
-.pillars {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--s-4);
-}
-@media (max-width: 900px) { .pillars { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 540px) { .pillars { grid-template-columns: 1fr; } }
-.pillar {
-  position: relative;
-  background: linear-gradient(180deg, rgba(253,249,240,0.06) 0%, rgba(253,249,240,0.02) 100%);
-  border: 1px solid rgba(184,150,74,0.18);
-  border-radius: 6px;
-  padding: var(--s-4);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.06) inset,
-    0 18px 36px -28px rgba(0,0,0,0.4),
-    0 2px 8px -4px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-.pillar:hover {
-  transform: translateY(-2px);
-  border-color: rgba(184,150,74,0.35);
-}
-.pillar .roman { display: none; }
+/* .pillar-icon is reused by the deck card fronts on /the-project/.
+   The icon's overrides on dark sections live in the deck CSS block. */
 .pillar-icon {
   width: 56px;
   height: 56px;
@@ -1379,25 +1354,6 @@ section .shell-narrow img.site-plan-img {
   opacity: 0.9;
 }
 .pillar-icon svg { width: 100%; height: 100%; }
-.pillar .roman {
-  font-family: var(--font-display);
-  font-style: italic;
-  color: var(--gold);
-  font-size: 1.4rem;
-  letter-spacing: 0;
-  margin-bottom: 0.6rem;
-  font-feature-settings: "lnum";
-}
-.pillar h4 {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 400;
-  font-style: normal;
-  letter-spacing: 0;
-  text-transform: none;
-  margin-bottom: var(--s-2);
-}
-.pillar p { font-size: 0.95rem; color: var(--ink-soft); margin: 0; }
 
 /* =========================================================
    Beginnings — paper-themed pillar-sized cards (home page)

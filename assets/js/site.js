@@ -714,39 +714,6 @@
       if (resetBtn) resetBtn.addEventListener('click', resetDeck);
 
       window.addEventListener('resize', layout);
-
-      // ---- DEV SHORTCUT (remove when done iterating) -------------------
-      // Append ?dealt to the URL to skip the deal cycle and render with
-      // all cards face-up in their slots immediately. The reset placeholder
-      // is also exposed, so click-to-reset still works for testing.
-      if (location.search.indexOf('dealt') !== -1) {
-        requestAnimationFrame(function () {
-          var stageRect = stage.getBoundingClientRect();
-          cards.forEach(function (card, i) {
-            var sp = relTo(stageRect, slots[i].getBoundingClientRect());
-            var inner = card.querySelector('.deck-card-inner');
-            card.dataset.targetSlot = String(i);
-            card.style.setProperty('--slot-x', sp.x + 'px');
-            card.style.setProperty('--slot-y', sp.y + 'px');
-            card.style.opacity = '1';
-            card.style.transition = 'none';
-            if (inner) inner.style.transition = 'none';
-            card.classList.add('is-flipping', 'is-placed');
-            slots[i].classList.add('is-filled');
-          });
-          currentIdx = cards.length;
-          stage.classList.add('is-spent');
-          // Restore transitions on the next frame so reset etc. still animate.
-          requestAnimationFrame(function () {
-            cards.forEach(function (card) {
-              card.style.transition = '';
-              var inner = card.querySelector('.deck-card-inner');
-              if (inner) inner.style.transition = '';
-            });
-          });
-        });
-        return;
-      }
       // ------------------------------------------------------------------
 
       // First frame: measure and write the per-card position vars.
