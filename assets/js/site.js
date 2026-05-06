@@ -550,6 +550,10 @@
           updateClickability();
         });
 
+        // Mobile: shift the deck pile out of center on the first deal.
+        // (No-op on desktop — the .has-dealt CSS rule is mobile-scoped.)
+        if (currentIdx === 1) stage.classList.add('has-dealt');
+
         // After the last card finishes traveling, mark the stage spent.
         if (currentIdx >= cards.length) {
           setTimeout(function () { stage.classList.add('is-spent'); }, 1300);
@@ -561,6 +565,10 @@
         if (currentIdx === 0) return;
         isResetting = true;
         stage.classList.remove('is-spent');
+        // Mobile: snap the deck pile back to center BEFORE measuring it
+        // for the return animations, so each card flies straight to its
+        // final centered home position.
+        stage.classList.remove('has-dealt');
         updateClickability(); // strip clickability from any in-flight card
 
         // Reverse-deal: the last card placed returns first, so the
@@ -604,8 +612,11 @@
       }
 
       // Send the most recently dealt card back to the deck pile.
-      // Mobile interaction: tap the revealed pile to flip cards back
-      // one at a time. Companion to dealNext (the inverse single step).
+      // Three-phase animation gives the return a more human curve:
+      //   Phase 1: un-flip in place at slot position (on top)
+      //   Phase 2: arc — sweep LEFT past the deck, drop DOWN, then up
+      //            onto the deck pile (CSS @keyframes deck-card-return-arc)
+      //   Phase 3: cleanup — settle z and re-layout
       function returnTopCard() {
         if (isResetting) return;
         if (currentIdx === 0) return;
@@ -614,42 +625,90 @@
         var slot = slots[idx];
         if (!card || !slot) return;
 
-        // Move the pointer back BEFORE we re-layout so this card lands
-        // at depth 0 (top of the reformed pile).
-        currentIdx--;
-        stage.classList.remove('is-spent');
+        // Phase 1 — un-flip in place. The .is-returning rule overrides
+        // .is-placed so the inner rotates back to face down while the
+        // outer stays at slot position. High z keeps it above siblings.
+        card.classList.add('is-returning');
+        card.style.setProperty('--z', '100');
 
-        // Dropping both classes triggers two transitions: the inner
-        // un-flips while the outer travels back to the pile.
-        card.classList.remove('is-flipping', 'is-placed');
-        delete card.dataset.targetSlot;
-        slot.classList.remove('is-filled');
-
-        // Ride above the rest of the pile during the journey home.
-        card.style.setProperty('--z', '50');
-
-        layout();
-        updateClickability();
-
+        // Phase 2 — after the flip, kick off the curved-path return.
         setTimeout(function () {
-          card.style.setProperty('--z', String(20)); // depth 0 now (top of pile)
-        }, 900);
+          currentIdx--;
+          stage.classList.remove('is-spent');
+          // Mobile: when the last dealt card returns, snap the deck pile
+          // back to its centered starting position. Do this BEFORE
+          // measuring the origin so the arc lands at the new position.
+          if (currentIdx === 0) stage.classList.remove('has-dealt');
+
+          var stageRect = stage.getBoundingClientRect();
+          var originRect = origin.getBoundingClientRect();
+          var op = relTo(stageRect, originRect);
+          var cardW = card.offsetWidth || 220;
+
+          // Final landing: top of the deck pile (depth 0).
+          card.style.setProperty('--x', op.x + 'px');
+          card.style.setProperty('--y', op.y + 'px');
+          card.style.setProperty('--rot', ((-1.5) * JITTER_DEG) + 'deg');
+          // Arc waypoint: 80% of a card width past the deck (mostly off
+          // the left edge of the screen), and ~80px below it.
+          card.style.setProperty('--arc-leftmost-x', (op.x - cardW * 0.7) + 'px');
+          card.style.setProperty('--arc-down-y', (op.y + 15) + 'px');
+
+          // Drop placement classes; the inner is already un-flipped via
+          // is-returning (which we also drop here). Replace with the
+          // arc class which takes over the outer's transform.
+          card.classList.remove('is-returning', 'is-flipping', 'is-placed');
+          delete card.dataset.targetSlot;
+          slot.classList.remove('is-filled');
+          card.classList.add('is-returning-arc');
+
+          // Z-drop: ~40% of the way through the arc the card has cleared
+          // the revealed pile, so drop its z-index so it visibly recedes
+          // behind the other cards as it loops back onto the deck.
+          setTimeout(function () {
+            card.style.setProperty('--z', '21');
+          }, 400); // 40% of 1000ms
+
+          // Phase 3 — after the arc completes, drop the animation class
+          // and let layout() re-establish the card's pile state.
+          setTimeout(function () {
+            card.classList.remove('is-returning-arc');
+            layout();
+            updateClickability();
+          }, 1000); // matches the 1s arc duration in CSS
+        }, 700); // matches the 0.7s inner-flip transition
       }
 
       stage.addEventListener('click', function (e) {
+        var isMobile = window.matchMedia('(max-width: 900px)').matches;
+
+        // On mobile, the deck and revealed piles overlap horizontally
+        // inside a perspective container — and browsers can mis-route
+        // the click target through the 3D layer. Skip hit testing
+        // entirely: check the click coords against the top revealed
+        // card's bounding rect first; if inside, return that card.
+        if (isMobile && currentIdx > 0) {
+          var topRevealed = cards[currentIdx - 1];
+          if (topRevealed) {
+            var r = topRevealed.getBoundingClientRect();
+            if (e.clientX >= r.left && e.clientX <= r.right &&
+                e.clientY >= r.top && e.clientY <= r.bottom) {
+              returnTopCard();
+              return;
+            }
+          }
+        }
+
         if (!e.target.closest) return;
-        // 1) Top of the deck pile → deal the next card (desktop + mobile).
+        // Top of the deck pile → deal the next card (desktop + mobile).
         if (e.target.closest('.deck-card[data-clickable]')) {
           dealNext();
           return;
         }
-        // 2) Mobile only — tap any dealt card OR the revealed-pile zone
-        //    to flip the topmost dealt card back to the deck pile.
-        if (window.matchMedia('(max-width: 900px)').matches) {
-          if (e.target.closest('.deck-card.is-placed') ||
-              e.target.closest('.deck-slots')) {
-            returnTopCard();
-          }
+        // Desktop: dealt cards aren't interactive (no return action).
+        // Mobile fallback for taps elsewhere in the slots zone.
+        if (isMobile && currentIdx > 0 && e.target.closest('.deck-slots')) {
+          returnTopCard();
         }
       });
       if (resetBtn) resetBtn.addEventListener('click', resetDeck);
@@ -691,25 +750,41 @@
       // ------------------------------------------------------------------
 
       // First frame: measure and write the per-card position vars.
-      // Then wait for the deck to scroll close to the viewport center
-      // before firing the entrance animation. The negative top/bottom
-      // rootMargin shrinks the "viewport" the observer cares about
-      // down to the middle ~30% of the screen, so the entrance fires
-      // when the deck is roughly centered, not when its top edge
-      // first appears at the bottom.
+      // Then wait for the deck PILE (not the whole stage — the stage
+      // also contains the heading + lede above it) to scroll into the
+      // middle band of the viewport before firing the entrance.
       requestAnimationFrame(function () {
         layout();
         updateClickability();
+        // Web fonts arriving after first layout shift the heading/lede
+        // height, which shifts the deck-pile-origin downward. Re-measure
+        // once fonts are ready so the entrance animation lands at the
+        // right spot.
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(layout);
+        }
         if ('IntersectionObserver' in window) {
           var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
               if (entry.isIntersecting) {
+                // Final re-measure right before the entrance fires,
+                // in case anything has shifted since the rAF tick.
+                layout();
                 stage.classList.add('is-ready');
-                io.unobserve(stage);
+                io.unobserve(entry.target);
+                // After the entrance staggers complete, lock it down
+                // so the .is-ready rule's animation never re-fires
+                // when other animation classes (return-arc) come and
+                // go. Last card's delay is 0.48s + 0.7s anim = 1.18s.
+                setTimeout(function () {
+                  stage.classList.add('has-entered');
+                }, 1300);
               }
             });
-          }, { threshold: 0, rootMargin: '-35% 0px -35% 0px' });
-          io.observe(stage);
+          }, { threshold: 0, rootMargin: '-30% 0px -30% 0px' });
+          // Observe the pile element so the trigger reflects when the
+          // CARDS — not the heading text — are roughly centered.
+          io.observe(origin);
         } else {
           // Fallback for browsers without IntersectionObserver.
           stage.classList.add('is-ready');

@@ -315,9 +315,11 @@ h1, .h1 {
 
 h2, .h2 {
   font-size: 3rem;
-  /* font-size: clamp(2.5rem, 3.6vw, 3rem); */
   font-weight: 400;
   line-height: 1.1;
+}
+@media (max-width: 600px) {
+  h2, .h2 { font-size: 2.5rem; }
 }
 
 h3, .h3 {
@@ -2706,13 +2708,26 @@ section[id] { scroll-margin-top: 70px; }
    the heading area doesn't push the deck and slots downward. */
 .deck-stage-text .measure-prose { margin-bottom: var(--s-3); }
 
-/* Italic prompt that calls out the click affordance, sitting
-   under the lede. Uses the display serif to echo the cards. */
+/* Italic prompt that calls out the click affordance.
+   Two variants live in the markup so each viewport gets the prompt
+   in the right place: -desktop sits in the heading column under
+   the lede, -mobile sits centered below the card deck area. */
 .deck-prompt {
   font: italic 1rem/1.55 var(--font-serif);
   color: rgba(244, 237, 225, 0.62);
   margin: 0;
   max-width: 56ch;
+}
+.deck-prompt-mobile { display: none; }
+@media (max-width: 900px) {
+  .deck-prompt-desktop { display: none; }
+  .deck-prompt-mobile {
+    display: block;
+    margin: var(--s-5) auto 0;
+    width: 75%;
+    max-width: none;
+    text-align: center;
+  }
 }
 
 /* Anchor cell that reserves the deck's resting position in the
@@ -2727,49 +2742,48 @@ section[id] { scroll-margin-top: 70px; }
   margin-top: -1.5rem;
   margin-right: 2rem;
 }
+/* Reset Deck button — sits where the deck pile lived. Hidden until
+   the deck is fully dealt (.is-spent), so it doesn't compete with
+   the cards while the deck is intact. Solid rounded box, gold text. */
 .deck-reset-placeholder {
   appearance: none;
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  /* Sit in the BOTTOM card's footprint (the deepest card in the pile),
-     so when the deck is empty the placeholder occupies its exact spot. */
+  /* Sit in the BOTTOM card's footprint so it occupies the exact spot
+     where the deepest card of the pile sat. */
   transform: translate(calc(var(--stack-offset) * 3), calc(var(--stack-offset) * 3));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
+  gap: 0.15rem;
   padding: var(--s-3);
-  border: 1px dashed rgba(184, 150, 74, 0.22);
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.06);
-  color: rgba(244, 237, 225, 0.42);
+  border: 1px solid rgba(184, 150, 74, 0.55);
+  border-radius: 10px;
+  background: rgba(36, 49, 33, 0.92);
+  color: var(--gold);
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-style: italic;
-  line-height: 1.1;
+  font-size: 1.4rem;
+  line-height: 1.05;
   letter-spacing: 0.02em;
+  text-transform: none;
   cursor: default;
   pointer-events: none;
-  /* Hidden until the stage is ready (so it doesn't peek through
-     while cards are still opacity:0 waiting on the scroll trigger).
-     Once ready, cards cover it; it only becomes visible again
-     when cards are dealt away. */
   opacity: 0;
-  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  transition: opacity 0.4s ease, color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
-.deck-stage.is-ready .deck-reset-placeholder { opacity: 1; }
 .deck-reset-placeholder span { display: block; }
 .deck-stage.is-spent .deck-reset-placeholder {
+  opacity: 1;
   pointer-events: auto;
   cursor: pointer;
 }
 .deck-stage.is-spent .deck-reset-placeholder:hover {
-  color: var(--gold);
-  border-color: rgba(184, 150, 74, 0.5);
-  background: rgba(184, 150, 74, 0.06);
+  color: var(--paper);
+  border-color: var(--gold);
+  background: rgba(184, 150, 74, 0.18);
 }
 
 /* Slots row — receives the dealt cards. Replaces the old .pillars grid. */
@@ -2811,16 +2825,20 @@ section[id] { scroll-margin-top: 70px; }
      animation handles the entrance from there. */
   opacity: 0;
 }
-.deck-stage.is-ready .deck-card {
-  opacity: 1;
+/* Once is-ready, cards become visible. Animation rule is split off
+   below and suppressed once .has-entered is set, so the entrance
+   doesn't re-fire later when other animation classes (return-arc)
+   come and go. */
+.deck-stage.is-ready .deck-card { opacity: 1; }
+.deck-stage.is-ready:not(.has-entered) .deck-card {
   animation: deck-card-fall-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 /* Stagger so the bottom card lands first, then each card
    above falls onto the growing stack. */
-.deck-stage.is-ready .deck-card[data-card="3"] { animation-delay: 0s;    }
-.deck-stage.is-ready .deck-card[data-card="2"] { animation-delay: 0.16s; }
-.deck-stage.is-ready .deck-card[data-card="1"] { animation-delay: 0.32s; }
-.deck-stage.is-ready .deck-card[data-card="0"] { animation-delay: 0.48s; }
+.deck-stage.is-ready:not(.has-entered) .deck-card[data-card="3"] { animation-delay: 0s;    }
+.deck-stage.is-ready:not(.has-entered) .deck-card[data-card="2"] { animation-delay: 0.16s; }
+.deck-stage.is-ready:not(.has-entered) .deck-card[data-card="1"] { animation-delay: 0.32s; }
+.deck-stage.is-ready:not(.has-entered) .deck-card[data-card="0"] { animation-delay: 0.48s; }
 
 .deck-card[data-clickable] {
   pointer-events: auto;
@@ -2880,6 +2898,41 @@ section[id] { scroll-margin-top: 70px; }
 .deck-card.is-flipping .deck-card-inner,
 .deck-card.is-placed .deck-card-inner {
   transform: rotateY(180deg);
+}
+/* Returning card un-flips IN PLACE (outer still at slot position).
+   This selector wins over .is-placed because it comes later in the
+   cascade with equal specificity, so the inner rotates back to face
+   down before the outer animates home. */
+.deck-card.is-returning .deck-card-inner {
+  transform: rotateY(0deg);
+}
+
+/* After the flip, the card takes a curved path back to the deck:
+   sweeps far LEFT past the revealed pile (almost off-screen), drops
+   DOWN, then arcs back to the right onto the deck pile. JS sets the
+   waypoint vars and toggles --z mid-animation so the card visibly
+   recedes behind the deck on its return. */
+@keyframes deck-card-return-arc {
+  0% {
+    transform: translate(var(--slot-x), var(--slot-y)) rotate(0deg);
+  }
+  40% {
+    /* Way left, past the revealed cards (mostly off-screen). */
+    transform: translate(var(--arc-leftmost-x), var(--slot-y)) rotate(-7deg);
+  }
+  70% {
+    /* Dropped down at the leftmost point. */
+    transform: translate(var(--arc-leftmost-x), var(--arc-down-y)) rotate(-4deg);
+  }
+  100% {
+    /* Up and right onto the deck pile (final position). */
+    transform: translate(var(--x), var(--y)) rotate(var(--rot));
+  }
+}
+/* Specificity must beat .deck-stage.is-ready .deck-card (which sets
+   animation: deck-card-fall-in) — otherwise the arc never runs. */
+.deck-stage .deck-card.is-returning-arc {
+  animation: deck-card-return-arc 1s cubic-bezier(0.55, 0, 0.45, 1) forwards;
 }
 .deck-card-face {
   position: absolute; inset: 0;
@@ -3051,25 +3104,35 @@ section[id] { scroll-margin-top: 70px; }
     grid-template-columns: 1fr;
     gap: var(--s-5);
   }
+  /* Deck centered initially. After the first deal, JS adds .has-dealt
+     to the stage and the pile snaps left so it sits side-by-side with
+     the revealed pile (with horizontal overlap in the middle).
+     No transition on the pile-origin itself — JS-driven instant shift,
+     so layout() can measure the new position immediately. The card
+     elements then animate to the new position via their own
+     transform transition. */
   .deck-pile-origin {
     justify-self: center;
     margin-right: 0;
+    transform: translateX(var(--pile-x, 0));
   }
-  /* Revealed-pile target — single card-sized zone below the deck pile.
-     All four slot positions overlap with progressive stack offsets so
-     dealt cards stack on top of each other (same offset feel as the
-     deal pile). The whole zone is tappable: tapping a card on the
-     revealed pile flips that one card back to the deck pile. */
+  .deck-stage.has-dealt .deck-pile-origin {
+    --pile-x: -25%;
+  }
+  /* Revealed pile sits at the SAME vertical level as the deck pile
+     (pulled up via negative margin) and is shifted RIGHT so the two
+     piles share the row with horizontal overlap in the middle. */
+  .deck-stage-head { margin-bottom: 0; }
   .deck-slots {
     display: block;
     position: relative;
     width: var(--card-w);
-    height: calc(var(--card-h) + var(--stack-offset) * 3);
-    margin: 0 auto;
+    height: var(--card-h);
+    margin: calc(-1 * var(--card-h)) auto 0;
+    transform: translateX(25%);
     grid-template-columns: none;
     gap: 0;
     justify-content: initial;
-    cursor: pointer;
   }
   .deck-slot {
     position: absolute;
@@ -3080,34 +3143,31 @@ section[id] { scroll-margin-top: 70px; }
     background: none;
     min-height: 0;
   }
-  /* Slot 0 shows the dashed target outline (sits behind the dealt cards). */
-  .deck-slot[data-slot="0"] {
-    border: 1px dashed rgba(184, 150, 74, 0.22);
-    background: rgba(0, 0, 0, 0.08);
-  }
-  .deck-slot[data-slot="1"] {
-    transform: translate(var(--stack-offset), var(--stack-offset));
-  }
-  .deck-slot[data-slot="2"] {
-    transform: translate(calc(var(--stack-offset) * 2), calc(var(--stack-offset) * 2));
-  }
-  .deck-slot[data-slot="3"] {
-    transform: translate(calc(var(--stack-offset) * 3), calc(var(--stack-offset) * 3));
-  }
-   /* Italic hint sits below the revealed pile so the tap-to-flip-back
-     interaction is discoverable. */
-  /*.deck-slots::after {
-    content: 'Tap a card to flip it back';
-    position: absolute;
-    top: 100%;
+  /* Horizontal stacking — each slot offset further right so dealt
+     cards land slightly right of the previous one. */
+  .deck-slot[data-slot="0"] { transform: translateX(0); }
+  .deck-slot[data-slot="1"] { transform: translateX(var(--stack-offset)); }
+  .deck-slot[data-slot="2"] { transform: translateX(calc(var(--stack-offset) * 2)); }
+  .deck-slot[data-slot="3"] { transform: translateX(calc(var(--stack-offset) * 3)); }
+
+  /* Mobile reset button — small compact box on the LEFT side of the
+     deck-pile-origin, vertically centered with the cards. Overrides
+     the desktop card-sized placeholder so it doesn't get covered by
+     the revealed pile that overlaps the deck pile area on mobile. */
+  .deck-reset-placeholder {
+    inset: auto;
+    top: 50%;
     left: 0;
-    right: 0;
-    margin-top: var(--s-3);
-    text-align: center;
-    font: italic 0.85rem var(--font-serif);
-    color: rgba(244, 237, 225, 0.5);
-    pointer-events: none;
-  } */
+    transform: translateY(-50%);
+    width: auto;
+    height: auto;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    line-height: 1.05;
+    gap: 0.1rem;
+    border-radius: 8px;
+    z-index: 30;
+  }
 }
 
 
