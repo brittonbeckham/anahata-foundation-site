@@ -453,6 +453,256 @@
     document.body.style.overflow = '';
   }
 
+  // ---- Card deck (Four Pillars deal/reset interaction) ----
+  // Drives any element with [data-deck-stage]. Inside the stage:
+  //   - [data-deck-origin] anchors the deck pile's resting position
+  //   - .deck-slot elements are deal targets (one per card)
+  //   - .deck-card elements live in .deck-cards-layer
+  //   - [data-deck-reset] toggles the reset flow when the deck is spent
+  // Multiple decks per page are supported.
+  function initCardDecks() {
+    var stages = document.querySelectorAll('[data-deck-stage]');
+    if (!stages.length) return;
+    stages.forEach(function (stage) { setupDeck(stage); });
+
+    function setupDeck(stage) {
+      var origin = stage.querySelector('[data-deck-origin]');
+      var slots = Array.prototype.slice.call(stage.querySelectorAll('.deck-slot'));
+      var cards = Array.prototype.slice.call(stage.querySelectorAll('.deck-card'));
+      var resetBtn = stage.querySelector('[data-deck-reset]');
+      if (!origin || !cards.length || !slots.length) return;
+
+      var STACK_OFFSET = 5;   // px between cards in the deck pile
+      var JITTER_DEG = 1.4;   // small rotation per stack position
+
+      var currentIdx = 0;
+      var isResetting = false; // gates only the reset animation; deals can overlap
+
+      function relTo(stageRect, rect) {
+        return { x: rect.left - stageRect.left, y: rect.top - stageRect.top };
+      }
+
+      function layout() {
+        var stageRect = stage.getBoundingClientRect();
+        var originRect = origin.getBoundingClientRect();
+        var op = relTo(stageRect, originRect);
+
+        cards.forEach(function (card, i) {
+          var depth = i - currentIdx;
+          if (!card.classList.contains('is-placed')) {
+            if (depth >= 0) {
+              var off = depth * STACK_OFFSET;
+              card.style.setProperty('--x', (op.x + off) + 'px');
+              card.style.setProperty('--y', (op.y + off) + 'px');
+              card.style.setProperty('--rot', ((depth - 1.5) * JITTER_DEG) + 'deg');
+              card.style.setProperty('--z', String(20 - depth));
+            }
+          } else {
+            var raw = card.dataset.targetSlot;
+            var slotIdx = (raw != null && raw !== '') ? parseInt(raw, 10) : -1;
+            if (slotIdx >= 0 && slots[slotIdx]) {
+              var sp = relTo(stageRect, slots[slotIdx].getBoundingClientRect());
+              card.style.setProperty('--slot-x', sp.x + 'px');
+              card.style.setProperty('--slot-y', sp.y + 'px');
+            }
+          }
+        });
+      }
+
+      function updateClickability() {
+        cards.forEach(function (c) { c.removeAttribute('data-clickable'); });
+        if (isResetting) return;
+        var top = cards[currentIdx];
+        if (top && !top.classList.contains('is-placed') && !top.classList.contains('is-flipping')) {
+          top.setAttribute('data-clickable', '');
+        }
+      }
+
+      function dealNext() {
+        if (isResetting) return;
+        var dealtIdx = currentIdx;
+        var card = cards[dealtIdx];
+        var slot = slots[dealtIdx];
+        if (!card || !slot) return;
+
+        // Advance the pile pointer immediately so rapid clicks queue.
+        currentIdx++;
+
+        var stageRect = stage.getBoundingClientRect();
+        var sp = relTo(stageRect, slot.getBoundingClientRect());
+        card.dataset.targetSlot = String(dealtIdx);
+        card.style.setProperty('--slot-x', sp.x + 'px');
+        card.style.setProperty('--slot-y', sp.y + 'px');
+        card.style.setProperty('--z', '50'); // ride above the pile during travel
+
+        // Phase 1 — flip the inner in place
+        card.classList.add('is-flipping');
+
+        // Phase 2 — at ~half through the flip, slide to the slot
+        setTimeout(function () {
+          card.classList.add('is-placed');
+          slot.classList.add('is-filled');
+        }, 350);
+
+        // Re-shuffle the visible pile and refresh the clickable card.
+        requestAnimationFrame(function () {
+          layout();
+          updateClickability();
+        });
+
+        // After the last card finishes traveling, mark the stage spent.
+        if (currentIdx >= cards.length) {
+          setTimeout(function () { stage.classList.add('is-spent'); }, 1300);
+        }
+      }
+
+      function resetDeck() {
+        if (isResetting) return;
+        if (currentIdx === 0) return;
+        isResetting = true;
+        stage.classList.remove('is-spent');
+        updateClickability(); // strip clickability from any in-flight card
+
+        // Reverse-deal: the last card placed returns first, so the
+        // reformed pile keeps its visual stack order (top of pile = card[0]).
+        var dealt = cards.slice(0, currentIdx).reverse();
+        var stageRect = stage.getBoundingClientRect();
+        var originRect = origin.getBoundingClientRect();
+        var op = relTo(stageRect, originRect);
+
+        var STAGGER = 130;
+
+        dealt.forEach(function (card, i) {
+          var cardIdx = cards.indexOf(card);
+          var depth = cardIdx;
+          var off = depth * STACK_OFFSET;
+
+          setTimeout(function () {
+            card.style.setProperty('--x', (op.x + off) + 'px');
+            card.style.setProperty('--y', (op.y + off) + 'px');
+            card.style.setProperty('--rot', ((depth - 1.5) * JITTER_DEG) + 'deg');
+            card.style.setProperty('--z', String(20 - depth + 30));
+            card.style.setProperty('--slot-x', (op.x + off) + 'px');
+            card.style.setProperty('--slot-y', (op.y + off) + 'px');
+
+            card.classList.remove('is-placed', 'is-flipping');
+            slots[cardIdx].classList.remove('is-filled');
+            delete card.dataset.targetSlot;
+          }, i * STAGGER);
+        });
+
+        var totalTravelMs = (dealt.length - 1) * STAGGER + 900;
+        setTimeout(function () {
+          isResetting = false;
+          currentIdx = 0;
+          cards.forEach(function (card, i) {
+            card.style.setProperty('--z', String(20 - i));
+          });
+          layout();
+          updateClickability();
+        }, totalTravelMs);
+      }
+
+      // Send the most recently dealt card back to the deck pile.
+      // Mobile interaction: tap the revealed pile to flip cards back
+      // one at a time. Companion to dealNext (the inverse single step).
+      function returnTopCard() {
+        if (isResetting) return;
+        if (currentIdx === 0) return;
+        var idx = currentIdx - 1;
+        var card = cards[idx];
+        var slot = slots[idx];
+        if (!card || !slot) return;
+
+        // Move the pointer back BEFORE we re-layout so this card lands
+        // at depth 0 (top of the reformed pile).
+        currentIdx--;
+        stage.classList.remove('is-spent');
+
+        // Dropping both classes triggers two transitions: the inner
+        // un-flips while the outer travels back to the pile.
+        card.classList.remove('is-flipping', 'is-placed');
+        delete card.dataset.targetSlot;
+        slot.classList.remove('is-filled');
+
+        // Ride above the rest of the pile during the journey home.
+        card.style.setProperty('--z', '50');
+
+        layout();
+        updateClickability();
+
+        setTimeout(function () {
+          card.style.setProperty('--z', String(20)); // depth 0 now (top of pile)
+        }, 900);
+      }
+
+      stage.addEventListener('click', function (e) {
+        if (!e.target.closest) return;
+        // 1) Top of the deck pile → deal the next card (desktop + mobile).
+        if (e.target.closest('.deck-card[data-clickable]')) {
+          dealNext();
+          return;
+        }
+        // 2) Mobile only — tap any dealt card OR the revealed-pile zone
+        //    to flip the topmost dealt card back to the deck pile.
+        if (window.matchMedia('(max-width: 900px)').matches) {
+          if (e.target.closest('.deck-card.is-placed') ||
+              e.target.closest('.deck-slots')) {
+            returnTopCard();
+          }
+        }
+      });
+      if (resetBtn) resetBtn.addEventListener('click', resetDeck);
+
+      window.addEventListener('resize', layout);
+
+      // ---- DEV SHORTCUT (remove when done iterating) -------------------
+      // Append ?dealt to the URL to skip the deal cycle and render with
+      // all cards face-up in their slots immediately. The reset placeholder
+      // is also exposed, so click-to-reset still works for testing.
+      if (location.search.indexOf('dealt') !== -1) {
+        requestAnimationFrame(function () {
+          var stageRect = stage.getBoundingClientRect();
+          cards.forEach(function (card, i) {
+            var sp = relTo(stageRect, slots[i].getBoundingClientRect());
+            var inner = card.querySelector('.deck-card-inner');
+            card.dataset.targetSlot = String(i);
+            card.style.setProperty('--slot-x', sp.x + 'px');
+            card.style.setProperty('--slot-y', sp.y + 'px');
+            card.style.opacity = '1';
+            card.style.transition = 'none';
+            if (inner) inner.style.transition = 'none';
+            card.classList.add('is-flipping', 'is-placed');
+            slots[i].classList.add('is-filled');
+          });
+          currentIdx = cards.length;
+          stage.classList.add('is-spent');
+          // Restore transitions on the next frame so reset etc. still animate.
+          requestAnimationFrame(function () {
+            cards.forEach(function (card) {
+              card.style.transition = '';
+              var inner = card.querySelector('.deck-card-inner');
+              if (inner) inner.style.transition = '';
+            });
+          });
+        });
+        return;
+      }
+      // ------------------------------------------------------------------
+
+      // First frame: measure and write the per-card position vars.
+      // Second frame: flip on `is-ready` so the entrance keyframes start
+      // with FROM values that already reference the resolved vars.
+      requestAnimationFrame(function () {
+        layout();
+        updateClickability();
+        requestAnimationFrame(function () {
+          stage.classList.add('is-ready');
+        });
+      });
+    }
+  }
+
   // ---- Generic reveal-on-scroll observer ----
   // Adds .is-revealed to any element with .stack-reveal or .page-opener-reveal
   // when it enters the viewport. Fires once per element.
@@ -488,5 +738,6 @@
     initRevealObserver();
     initSitePlanZoom();
     initScopeExpander();
+    initCardDecks();
   });
 })();
