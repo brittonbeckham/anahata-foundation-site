@@ -31,6 +31,7 @@
   --gradient-cta-hover: linear-gradient(180deg, #c08a4a 0%, #a06a32 100%);
   --gradient-card: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 60%);
   --gradient-pine-radial: radial-gradient(ellipse at 30% 0%, #3a4a36 0%, #2c3a29 45%, #1f2a1d 100%);
+  --gradient-sandstone-radial: radial-gradient(ellipse at 30% 0%, #a04830 0%, #7a3220 45%, #4d2014 100%);
   --gradient-ink-banner: linear-gradient(180deg, #221d18 0%, #1a1612 100%);
   --gradient-card-elevated: linear-gradient(180deg, #fdf9f0 0%, #f8f2e6 100%);
   --gradient-rule: linear-gradient(90deg, transparent 0%, var(--rule) 20%, var(--rule) 80%, transparent 100%);
@@ -53,9 +54,9 @@
   --s-4: 2rem;
   --s-5: 3rem;
   --s-6: 4rem;
-  --s-7: 6rem;
-  --s-8: 8rem;
-  --s-9: 12rem;
+  --s-7: 5rem;
+  --s-8: 7rem;
+  --s-9: 10rem;
 
   /* Layout */
   --measure: 38rem;          /* ideal reading column */
@@ -103,12 +104,13 @@ html, body {
   background: var(--gradient-paper);
   color: var(--ink);
   font-family: var(--font-serif);
-  font-size: 18px;
   line-height: 1.55;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "kern", "liga", "onum";
 }
+html { font-size: 18px; }
+body { font-size: 20px; }
 
 img { display: block; max-width: 100%; height: auto; }
 
@@ -264,7 +266,8 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  font-size: clamp(1.875rem, 3.6vw, 3rem);
+  font-size: 3rem;
+  /* font-size: clamp(2.5rem, 3.6vw, 3rem); */
   font-weight: 400;
   line-height: 1.1;
 }
@@ -425,10 +428,256 @@ section {
   background: var(--gradient-rule);
   pointer-events: none;
 }
-.section-pine .eyebrow { color: var(--gold); }
-.section-pine .eyebrow-soft { color: var(--rule-soft); }
-.section-pine a { border-bottom-color: rgba(244,237,225,0.3); }
-.section-pine a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+.section-pine .eyebrow,
+.section-sandstone-deep .eyebrow { color: var(--gold); }
+.section-pine .eyebrow-soft,
+.section-sandstone-deep .eyebrow-soft { color: var(--rule-soft); }
+.section-pine a,
+.section-sandstone-deep a { border-bottom-color: rgba(244,237,225,0.3); }
+.section-pine a:hover,
+.section-sandstone-deep a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* Page-marker, pillar, and paragraph automatic restyling on dark backgrounds */
+.section-pine .page-marker,
+.section-sandstone-deep .page-marker {
+  border-bottom-color: rgba(244, 237, 225, 0.2);
+}
+.section-pine .page-marker .num,
+.section-sandstone-deep .page-marker .num { color: var(--gold); }
+.section-pine .page-marker .label,
+.section-sandstone-deep .page-marker .label { color: var(--paper); }
+.section-pine p,
+.section-sandstone-deep p { color: rgba(244, 237, 225, 0.85); }
+/* Carousel card sits on its own light bg — keep body text ink-colored */
+.section-pine .ic-card p,
+.section-sandstone-deep .ic-card p { color: var(--ink); }
+.section-pine .pillar { border-top-color: rgba(244, 237, 225, 0.25); }
+.section-pine .pillar p { color: rgba(244, 237, 225, 0.78); }
+
+/* Carousel controls on dark sections — arrows, counter, dots, group labels */
+.section-pine .ic-arrow,
+.section-sandstone-deep .ic-arrow {
+  color: var(--paper);
+  border-color: rgba(244, 237, 225, 0.4);
+}
+.section-pine .ic-arrow:hover,
+.section-sandstone-deep .ic-arrow:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: rgba(255, 220, 150, 0.08);
+}
+.section-pine .ic-counter,
+.section-sandstone-deep .ic-counter {
+  color: rgba(244, 237, 225, 0.7);
+}
+.section-pine .ic-counter-current,
+.section-sandstone-deep .ic-counter-current {
+  color: var(--gold);
+}
+.section-pine .ic-counter-sep,
+.section-sandstone-deep .ic-counter-sep {
+  color: rgba(244, 237, 225, 0.3);
+}
+.section-pine .ic-groups,
+.section-sandstone-deep .ic-groups {
+  border-top-color: rgba(244, 237, 225, 0.2);
+}
+.section-pine .ic-group-label,
+.section-sandstone-deep .ic-group-label {
+  color: rgba(244, 237, 225, 0.75);
+}
+.section-pine .ic-dot,
+.section-sandstone-deep .ic-dot {
+  border-color: rgba(244, 237, 225, 0.4);
+}
+.section-pine .ic-dot:hover,
+.section-sandstone-deep .ic-dot:hover {
+  border-color: var(--gold);
+}
+.section-pine .ic-dot.is-active,
+.section-sandstone-deep .ic-dot.is-active {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Section-intro: wrapper around a subsection h2 + intro paragraph,
+   adds breathing room between the intro and the content that follows */
+.section-intro { margin-bottom: var(--s-5); }
+
+/* Prose measure — constrain a paragraph's width for line-length readability */
+.measure-prose { max-width: 38em; }
+
+/* Site plan / aerial map image — grayscale by default; hover-magnifier
+   lens (desktop) and click-to-open full-size lightbox (all). */
+section .shell img.site-plan-img,
+section .shell-narrow img.site-plan-img {
+  border-radius: 0;
+  filter: grayscale(1);
+  transition: filter 0.4s ease;
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Clip the bottom 2px to hide a stray white edge in the source JPG */
+  clip-path: inset(0 0 2px 0);
+}
+.site-plan-wrap {
+  position: relative;
+  cursor: zoom-in;
+  display: block;
+  outline: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Hairline rule below the image — applied to the wrapper so it
+     stays unaffected by the image's grayscale filter. */
+  box-shadow: 0 1px 0 var(--rule);
+}
+.site-plan-wrap .site-plan-img {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.site-plan-wrap:focus-visible {
+  box-shadow: 0 0 0 2px var(--sandstone);
+}
+.site-plan-hint {
+  padding: 0.4rem 0.8rem;
+  background: radial-gradient(
+    ellipse at 30% 0%,
+    rgba(160, 72, 48, 0.78) 0%,
+    rgba(122, 50, 32, 0.78) 45%,
+    rgba(77, 32, 20, 0.78) 100%
+  );
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 2px 8px -2px rgba(26, 22, 18, 0.25);
+}
+.site-plan-hint-hover {
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.6rem;
+}
+.site-plan-hint-touch {
+  text-align: center;
+  margin-bottom: var(--s-2);
+}
+
+/* Hover magnifier lens — zoomed inset that tracks the cursor */
+.site-plan-lens {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 3px solid var(--paper);
+  box-shadow:
+    0 0 0 1px var(--rule),
+    0 18px 40px -16px rgba(26, 22, 18, 0.5),
+    0 4px 12px -4px rgba(26, 22, 18, 0.25);
+  background-repeat: no-repeat;
+  pointer-events: none;
+  display: none;
+  z-index: 5;
+}
+.site-plan-lens.is-active { display: block; }
+
+/* Hint text — different wording for hover vs touch devices */
+.site-plan-hint-touch { display: none; }
+@media (hover: none), (pointer: coarse) {
+  .site-plan-hint-hover { display: none; }
+  .site-plan-hint-touch { display: block; }
+}
+
+/* Full-size lightbox modal */
+.site-plan-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 12, 10, 0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: zoom-out;
+  padding: var(--s-4);
+}
+.site-plan-modal.is-open { display: flex; }
+.site-plan-modal img {
+  max-width: 95vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  display: block;
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+.site-plan-modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid rgba(244, 237, 225, 0.5);
+  color: var(--paper);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.site-plan-modal-close:hover {
+  background: rgba(244, 237, 225, 0.1);
+  border-color: var(--paper);
+}
+
+/* Vertical-rhythm spacing utilities */
+.mt-sm { margin-top: var(--s-4); }
+.mt-md { margin-top: var(--s-5); }
+.mt-lg { margin-top: var(--s-6); }
+.mb-sm { margin-bottom: var(--s-4); }
+.mb-md { margin-bottom: var(--s-5); }
+.mb-lg { margin-bottom: var(--s-6); }
+
+/* =========================================================
+   Sandstone-deep section background — fully saturated dark
+   sandstone with golden highlights. Parallel to .section-pine
+   but in the red-rock palette.
+   ========================================================= */
+
+.section-sandstone-deep {
+  position: relative;
+  background:
+    radial-gradient(ellipse 50% 30% at 80% 100%, rgba(255, 220, 150, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 10% 0%, rgba(255, 200, 150, 0.08) 0%, transparent 60%),
+    var(--gradient-sandstone-radial);
+  color: var(--paper);
+}
+
+/* =========================================================
+   Section photos — generic 3-column photo grid (residence, etc.)
+   ========================================================= */
+
+.section-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-3);
+}
+@media (max-width: 800px) {
+  .section-photos { grid-template-columns: 1fr; }
+}
+.section-photos .placeholder {
+  aspect-ratio: 4 / 3;
+}
 
 .divider {
   height: 1px;
@@ -1380,7 +1629,7 @@ section {
 .scope-row.current::before {
   content: "";
   position: absolute;
-  left: -1.6rem;
+  left: -0.8rem;
   top: 50%;
   width: 0;
   height: 0;

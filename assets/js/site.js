@@ -264,6 +264,159 @@
     go(0);
   }
 
+  // ---- Site-plan zoom (hover/hold magnifier + tap/click-to-open lightbox) ----
+  function initSitePlanZoom() {
+    var wrap = document.querySelector('[data-site-plan]');
+    if (!wrap) return;
+    var img = wrap.querySelector('.site-plan-img');
+    if (!img) return;
+
+    var lens = document.createElement('div');
+    lens.className = 'site-plan-lens';
+    lens.style.backgroundImage = 'url("' + img.src + '")';
+    wrap.appendChild(lens);
+
+    var zoomFactor = 2.5;
+    var lensActive = false;
+    var holdTimer = null;
+    var touchStartX = 0, touchStartY = 0;
+    var touchMoved = false;
+    var suppressNextClick = false;
+    var HOLD_MS = 280;
+    var MOVE_THRESHOLD = 10;
+
+    function showLens() {
+      if (lensActive) return;
+      lensActive = true;
+      lens.classList.add('is-active');
+      var rect = img.getBoundingClientRect();
+      lens.style.backgroundSize = (rect.width * zoomFactor) + 'px ' + (rect.height * zoomFactor) + 'px';
+    }
+    function hideLens() {
+      if (!lensActive) return;
+      lensActive = false;
+      lens.classList.remove('is-active');
+    }
+    function updateLens(clientX, clientY) {
+      var rect = img.getBoundingClientRect();
+      var x = clientX - rect.left;
+      var y = clientY - rect.top;
+      var lensSize = lens.offsetWidth;
+      var halfLens = lensSize / 2;
+      var lensX = Math.max(0, Math.min(x - halfLens, rect.width - lensSize));
+      var lensY = Math.max(0, Math.min(y - halfLens, rect.height - lensSize));
+      lens.style.left = lensX + 'px';
+      lens.style.top = lensY + 'px';
+      var bgX = -(x * zoomFactor - halfLens);
+      var bgY = -(y * zoomFactor - halfLens);
+      lens.style.backgroundPosition = bgX + 'px ' + bgY + 'px';
+    }
+
+    // Mouse: standard hover magnifier
+    img.addEventListener('mouseenter', function () { showLens(); });
+    img.addEventListener('mouseleave', function () { hideLens(); });
+    img.addEventListener('mousemove', function (e) { updateLens(e.clientX, e.clientY); });
+
+    // Touch: hold to magnify, quick tap opens the modal
+    wrap.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      var t = e.touches[0];
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+      touchMoved = false;
+      holdTimer = setTimeout(function () {
+        if (!touchMoved) {
+          showLens();
+          updateLens(touchStartX, touchStartY);
+          suppressNextClick = true;
+        }
+      }, HOLD_MS);
+    }, { passive: true });
+
+    wrap.addEventListener('touchmove', function (e) {
+      if (e.touches.length !== 1) return;
+      var t = e.touches[0];
+      if (lensActive) {
+        e.preventDefault();
+        updateLens(t.clientX, t.clientY);
+      } else {
+        var dx = Math.abs(t.clientX - touchStartX);
+        var dy = Math.abs(t.clientY - touchStartY);
+        if (dx > MOVE_THRESHOLD || dy > MOVE_THRESHOLD) {
+          touchMoved = true;
+          clearTimeout(holdTimer);
+        }
+      }
+    }, { passive: false });
+
+    wrap.addEventListener('touchend', function () {
+      clearTimeout(holdTimer);
+      hideLens();
+    }, { passive: true });
+    wrap.addEventListener('touchcancel', function () {
+      clearTimeout(holdTimer);
+      hideLens();
+    }, { passive: true });
+
+    // Suppress the long-press / right-click context menu so the magnifier
+    // can take over the long-press gesture on touch devices.
+    wrap.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+    // Click / keyboard to open the lightbox (tap-and-hold suppresses the click)
+    function open() { openSitePlanModal(img.src, img.alt); }
+    wrap.addEventListener('click', function () {
+      if (suppressNextClick) {
+        suppressNextClick = false;
+        return;
+      }
+      open();
+    });
+    wrap.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open();
+      }
+    });
+  }
+
+  function openSitePlanModal(src, alt) {
+    var modal = document.querySelector('.site-plan-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.className = 'site-plan-modal';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-label', 'Site plan, full size');
+      modal.innerHTML =
+        '<button class="site-plan-modal-close" type="button" aria-label="Close">&times;</button>' +
+        '<img alt="" />';
+      document.body.appendChild(modal);
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal || e.target.classList.contains('site-plan-modal-close')) {
+          closeSitePlanModal();
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeSitePlanModal();
+        }
+      });
+    }
+    var modalImg = modal.querySelector('img');
+    modalImg.src = src;
+    modalImg.alt = alt;
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSitePlanModal() {
+    var modal = document.querySelector('.site-plan-modal');
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
   // ---- Generic reveal-on-scroll observer ----
   // Adds .is-revealed to any element with .stack-reveal or .page-opener-reveal
   // when it enters the viewport. Fires once per element.
@@ -297,5 +450,6 @@
     initLandCarousel();
     initInstallationsCarousel();
     initRevealObserver();
+    initSitePlanZoom();
   });
 })();

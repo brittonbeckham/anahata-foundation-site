@@ -57,23 +57,23 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
     </div>
 
     <!-- Land carousel -->
-    <div class="shell" style="margin-top: var(--s-6);">
+    <div class="shell mt-lg">
       {% include land-carousel.html %}
     </div>
 
-    <div class="shell" style="margin-top: var(--s-5);">
+    <div class="shell mt-md">
       <div class="facts">
         <div class="fact">
           <div class="num">46</div>
           <div class="lab">Acres</div>
         </div>
         <div class="fact">
-          <div class="num">7 / 2</div>
-          <div class="lab">Bedrooms &middot; Kitchens</div>
+          <div class="num">16 + 30</div>
+          <div class="lab">Lower &middot; Upper Meadows</div>
         </div>
         <div class="fact">
-          <div class="num">Sustainable</div>
-          <div class="lab">Solar &middot; Well &middot; Cistern</div>
+          <div class="num">60 ft</div>
+          <div class="lab">Ravine climb between</div>
         </div>
         <div class="fact">
           <div class="num">25 min</div>
@@ -83,59 +83,75 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
     </div>
   </div>
 
-  <!-- Site Plan -->
+  <!-- The Residence -->
   <div class="section section-paper-2">
     <div class="shell">
       <div class="page-marker">
-        <span class="num">02</span><span class="label">The site plan</span>
+        <span class="num">02</span><span class="label">The residence</span>
       </div>
-      <div class="two-col-narrow">
-        <div>
-          <h2>Each place named, tended, prepared.</h2>
+      <div class="wide-prose">
+        <h2>Built into the hillside, off-grid by design.</h2>
+        <div class="wide-prose-body">
           <p>
-            The land already speaks. Our work is to listen and to mark.
-            The diagram opposite shows the spaces being prepared across the lower meadow &mdash;
-            the yurts where teaching and ceremony will happen, the moon bath cove
-            along the river, the chakra path of land-sourced stone, the labyrinth, the
-            ceremonial firepit.
+            The home is set partially into the hillside and runs entirely off-grid &mdash;
+            solar with battery storage and backup generation, well water drawn into an
+            eighteen-hundred-gallon cistern with full filtration. Eighteen-inch adobe walls
+            hold the house cool through summer without active cooling, and radiant in-floor
+            heat carries it through Colorado winters.
           </p>
           <p>
-            Most of these are sketched today; some are partly built. All of them are part of
-            Scope II, to be activated over eighteen to twenty-four months once the land has
-            been brought into permanent stewardship.
+            Seven bedrooms, five bathrooms, two kitchens, and several living spaces make
+            room for the family of six full-time alongside visiting guests, overnight retreats,
+            social events, and the intimate facilitation work of small-group gatherings. The
+            home feels earthy and grounded &mdash; eighteen inches of adobe between the work
+            and the world outside.
           </p>
         </div>
-        <div>
-          <img src="{{ '/assets/media/anahata-map.jpg' | relative_url }}" alt="Aerial site plan of Anahata's lower meadow with each named space marked: tree circle, yurts, moon bath cove, chakra path, ceremonial firepit, riverside sauna, ravine entrance" style="box-shadow: 0 1px 0 var(--rule);" />
-          <div class="caption">Lower meadow site plan &mdash; current planning draft.</div>
+      </div>
+    </div>
+
+    <!-- Photo placeholders — replace with real residence images -->
+    <div class="shell mt-lg">
+      <div class="section-photos">
+        <div class="placeholder">Residence &mdash; exterior</div>
+        <div class="placeholder">Residence &mdash; interior gathering space</div>
+        <div class="placeholder">Residence &mdash; kitchen</div>
+      </div>
+    </div>
+
+    <div class="shell mt-md">
+      <div class="facts">
+        <div class="fact">
+          <div class="num">7 / 5</div>
+          <div class="lab">Bedrooms &middot; Bathrooms</div>
+        </div>
+        <div class="fact">
+          <div class="num">2</div>
+          <div class="lab">Kitchens &middot; Living spaces</div>
+        </div>
+        <div class="fact">
+          <div class="num">Off-grid</div>
+          <div class="lab">Solar &middot; Battery &middot; Backup</div>
+        </div>
+        <div class="fact">
+          <div class="num">18&Prime;</div>
+          <div class="lab">Adobe walls</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Installations carousel -->
-  <div class="section">
-    <div class="shell">
-      <div class="page-marker">
-        <span class="num">03</span><span class="label">The installations</span>
-      </div>
-      <div class="two-col-narrow" style="margin-bottom: var(--s-5);">
-        <h2>Each space, on its own terms.</h2>
-        <p style="font-size: 1.05rem;">
-          Fifteen installations across three categories &mdash; facilitation spaces where ceremony
-          and teaching happen, energetic land markers that hold the field, and play areas
-          that activate joy and embodied aliveness. Step through each at your own pace.
-        </p>
-      </div>
-      {% include installations-carousel.html %}
-    </div>
-  </div>
+  <!-- Photo break (residence → philosophy) -->
+  <div class="bleed-image bleed-image-fixed"
+       role="img"
+       aria-label="The cottonwood tree circle on the lower meadow, late spring"
+       style="background-image: url('{{ '/assets/media/tree-circle.jpg' | relative_url }}');"></div>
 
   <!-- Philosophy -->
   <div class="section">
     <div class="shell">
       <div class="page-marker">
-        <span class="num">04</span><span class="label">Philosophy</span>
+        <span class="num">03</span><span class="label">Philosophy</span>
       </div>
       <div class="wide-prose">
         <h2>Remembrance over repair.</h2>
@@ -168,18 +184,18 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
   <!-- Four Pillars -->
   <div class="section section-pine">
     <div class="shell">
-      <div class="page-marker" style="border-bottom-color: rgba(244,237,225,0.2);">
-        <span class="num" style="color: var(--gold);">05</span><span class="label" style="color: var(--paper);">The four pillars</span>
+      <div class="page-marker">
+        <span class="num">04</span><span class="label">The four pillars</span>
       </div>
       <h2 class="heading-wide">
         The structure beneath everything taught here.
       </h2>
-      <p style="max-width: 38em; color: rgba(244,237,225,0.85); font-size: 1.05rem; margin-bottom: var(--s-6);">
+      <p class="measure-prose mb-lg">
         Four living principles, each a bridge between the inner and outer worlds. They are
         not abstract ideals &mdash; they are the practical pathways through which remembrance occurs.
       </p>
       <div class="pillars">
-        <div class="pillar" style="border-top-color: rgba(244,237,225,0.25);">
+        <div class="pillar">
           <div class="pillar-icon" aria-hidden="true">
             <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M32 6 L34.4 22 L48 14 L37 26 L54 28 L37 30 L48 42 L34.4 34 L32 50 L29.6 34 L16 42 L27 30 L10 28 L27 26 L16 14 L29.6 22 Z" />
@@ -187,14 +203,14 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
             </svg>
           </div>
           <div class="roman">01</div>
-          <h4 style="color: var(--paper);">Magick</h4>
-          <p style="color: rgba(244,237,225,0.78);">
+          <h4>Magick</h4>
+          <p>
             The art of conscious creation &mdash; aligning will, imagination, and emotion
             with universal law. Spelled with a <em>k</em>, after the older traditions, to
             distinguish the sacred art from stage illusion.
           </p>
         </div>
-        <div class="pillar" style="border-top-color: rgba(244,237,225,0.25);">
+        <div class="pillar">
           <div class="pillar-icon" aria-hidden="true">
             <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M32 8 C 28 14, 22 18, 22 26 C 22 32, 26 36, 32 36 C 38 36, 42 32, 42 26 C 42 18, 36 14, 32 8 Z" />
@@ -205,14 +221,14 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
             </svg>
           </div>
           <div class="roman">02</div>
-          <h4 style="color: var(--paper);">Ritual</h4>
-          <p style="color: rgba(244,237,225,0.78);">
+          <h4>Ritual</h4>
+          <p>
             Highly intentional, aligned action. The bridge between physical and spiritual &mdash;
             the architecture that holds magick in place and reminds us that any moment can
             be made holy through presence.
           </p>
         </div>
-        <div class="pillar" style="border-top-color: rgba(244,237,225,0.25);">
+        <div class="pillar">
           <div class="pillar-icon" aria-hidden="true">
             <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M32 32 C 32 32, 28 18, 16 14 C 10 12, 8 18, 12 24 C 16 30, 28 32, 32 32 Z" />
@@ -226,14 +242,14 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
             </svg>
           </div>
           <div class="roman">03</div>
-          <h4 style="color: var(--paper);">Play</h4>
-          <p style="color: rgba(244,237,225,0.78);">
+          <h4>Play</h4>
+          <p>
             The frequency of creation. Curiosity, imagination, and lightness as a path &mdash;
             because laughter often carries us deeper into truth than effort and striving
             ever could.
           </p>
         </div>
-        <div class="pillar" style="border-top-color: rgba(244,237,225,0.25);">
+        <div class="pillar">
           <div class="pillar-icon" aria-hidden="true">
             <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M44 18 A 18 18 0 1 0 46 46 A 14 14 0 1 1 44 18 Z" />
@@ -243,14 +259,64 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
             </svg>
           </div>
           <div class="roman">04</div>
-          <h4 style="color: var(--paper);">Astrology</h4>
-          <p style="color: rgba(244,237,225,0.78);">
+          <h4>Astrology</h4>
+          <p>
             The Cosmic Clock &mdash; the language of divine timing. Planetary movement informs
             the rhythm of our rituals, the design of our teachings, and the pacing of the
             center's growth. As above, so below.
           </p>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Site Plan -->
+  <div class="section section-paper-2">
+    <div class="shell">
+      <div class="page-marker">
+        <span class="num">05</span><span class="label">The site plan</span>
+      </div>
+      <div class="two-col-narrow">
+        <div>
+          <h2>Each place named, tended, prepared.</h2>
+          <p>
+            The land already speaks. Our work is to listen and to mark.
+            The diagram opposite shows the spaces being prepared across the lower meadow &mdash;
+            the yurts where teaching and ceremony will happen, the moon bath cove
+            along the river, the chakra path of land-sourced stone, the labyrinth, the
+            ceremonial firepit.
+          </p>
+          <p>
+            Most of these are sketched today; some are partly built. All of them are part of
+            Scope II, to be activated over eighteen to twenty-four months once the land has
+            been brought into permanent stewardship.
+          </p>
+        </div>
+        <div>
+          <div class="site-plan-wrap" data-site-plan role="button" tabindex="0" aria-label="Open site plan at full size">
+            <div class="site-plan-hint site-plan-hint-touch">Hold to magnify &middot; tap for full size</div>
+            <img class="site-plan-img no-shadow" src="{{ '/assets/media/anahata-map.jpg' | relative_url }}" alt="Aerial site plan of Anahata's lower meadow with each named space marked: tree circle, yurts, moon bath cove, chakra path, ceremonial firepit, riverside sauna, ravine entrance" />
+            <div class="site-plan-hint site-plan-hint-hover">Hover to magnify &middot; click for full size</div>
+          </div>
+          <div class="caption">Lower meadow site plan &mdash; current planning draft.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Installations carousel -->
+  <div class="section section-sandstone-deep">
+    <div class="shell">
+      <div class="page-marker">
+        <span class="num">06</span><span class="label">The installations</span>
+      </div>
+      <h2>Each space, on its own terms.</h2>
+      <p class="measure-prose mb-lg">
+        Fifteen installations across three categories &mdash; facilitation spaces where ceremony
+        and teaching happen, energetic land markers that hold the field, and play areas
+        that activate joy and embodied aliveness. Step through each at your own pace.
+      </p>
+      {% include installations-carousel.html %}
     </div>
   </div>
 
@@ -264,16 +330,14 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
   <div class="section">
     <div class="shell">
       <div class="page-marker">
-        <span class="num">06</span><span class="label">Five scopes of development</span>
+        <span class="num">07</span><span class="label">Five scopes of development</span>
       </div>
-      <div class="two-col-narrow" style="margin-bottom: var(--s-5);">
-        <h2>How the vision unfolds, in five movements.</h2>
-        <p style="font-size: 1.1rem;">
-          Anahata is being built across five distinct phases. Each one builds upon the last.
-          We are at the threshold of <span class="serif-script">Scope I</span> &mdash; the
-          acquisition of the land into permanent nonprofit stewardship.
-        </p>
-      </div>
+      <h2>How the vision unfolds, in five movements.</h2>
+      <p class="measure-prose mb-lg">
+        Anahata is being built across five distinct phases. Each one builds upon the last.
+        We are at the threshold of <span class="serif-script">Scope I</span> &mdash; the
+        acquisition of the land into permanent nonprofit stewardship.
+      </p>
 
       <div class="scopes">
         <div class="scope-row current">
@@ -345,7 +409,7 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
   <div class="section section-paper-2">
     <div class="shell">
       <div class="page-marker">
-        <span class="num">07</span><span class="label">Where we stand today</span>
+        <span class="num">08</span><span class="label">Where we stand today</span>
       </div>
       <div class="wide-prose">
         <h2>At the threshold of Scope I.</h2>
@@ -364,7 +428,7 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
             investment. It is a contribution to advancing human consciousness &mdash; a chance to
             place capital in the service of something that will outlast all of us.
           </p>
-          <p style="margin-top: var(--s-4);">
+          <p class="mt-sm">
             <a href="{{ '/get-involved/' | relative_url }}" class="link-cta">
               Reach out to begin a conversation &rarr;
             </a>
