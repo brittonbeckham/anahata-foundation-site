@@ -2753,8 +2753,14 @@ section[id] { scroll-margin-top: 70px; }
   letter-spacing: 0.02em;
   cursor: default;
   pointer-events: none;
+  /* Hidden until the stage is ready (so it doesn't peek through
+     while cards are still opacity:0 waiting on the scroll trigger).
+     Once ready, cards cover it; it only becomes visible again
+     when cards are dealt away. */
+  opacity: 0;
   transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
+.deck-stage.is-ready .deck-reset-placeholder { opacity: 1; }
 .deck-reset-placeholder span { display: block; }
 .deck-stage.is-spent .deck-reset-placeholder {
   pointer-events: auto;
@@ -3088,9 +3094,9 @@ section[id] { scroll-margin-top: 70px; }
   .deck-slot[data-slot="3"] {
     transform: translate(calc(var(--stack-offset) * 3), calc(var(--stack-offset) * 3));
   }
-  /* Italic hint sits below the revealed pile so the tap-to-flip-back
+   /* Italic hint sits below the revealed pile so the tap-to-flip-back
      interaction is discoverable. */
-  .deck-slots::after {
+  /*.deck-slots::after {
     content: 'Tap a card to flip it back';
     position: absolute;
     top: 100%;
@@ -3101,7 +3107,7 @@ section[id] { scroll-margin-top: 70px; }
     font: italic 0.85rem var(--font-serif);
     color: rgba(244, 237, 225, 0.5);
     pointer-events: none;
-  }
+  } */
 }
 
 

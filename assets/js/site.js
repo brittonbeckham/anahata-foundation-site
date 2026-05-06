@@ -691,8 +691,12 @@
       // ------------------------------------------------------------------
 
       // First frame: measure and write the per-card position vars.
-      // Then wait for the deck to scroll into view before firing the
-      // entrance animation (matches the rest of the site's reveal pattern).
+      // Then wait for the deck to scroll close to the viewport center
+      // before firing the entrance animation. The negative top/bottom
+      // rootMargin shrinks the "viewport" the observer cares about
+      // down to the middle ~30% of the screen, so the entrance fires
+      // when the deck is roughly centered, not when its top edge
+      // first appears at the bottom.
       requestAnimationFrame(function () {
         layout();
         updateClickability();
@@ -704,7 +708,7 @@
                 io.unobserve(stage);
               }
             });
-          }, { threshold: 0.2 });
+          }, { threshold: 0, rootMargin: '-35% 0px -35% 0px' });
           io.observe(stage);
         } else {
           // Fallback for browsers without IntersectionObserver.
