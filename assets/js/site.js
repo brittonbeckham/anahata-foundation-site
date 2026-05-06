@@ -264,6 +264,42 @@
     go(0);
   }
 
+  // ---- Scope rows: click/keyboard to expand the bullet details ----
+  function initScopeExpander() {
+    var rows = document.querySelectorAll('[data-scope-row]');
+    if (!rows.length) return;
+    rows.forEach(function (row) {
+      var details = row.querySelector('.scope-row-details');
+      var inner = details && details.querySelector('.scope-row-details-inner');
+      if (!details || !inner) return;
+
+      function toggle() {
+        var open = row.classList.toggle('is-expanded');
+        row.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          details.style.maxHeight = inner.scrollHeight + 'px';
+        } else {
+          details.style.maxHeight = '0';
+        }
+      }
+
+      row.addEventListener('click', toggle);
+      row.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+
+      // Recompute height on viewport resize for any rows that are open
+      window.addEventListener('resize', function () {
+        if (row.classList.contains('is-expanded')) {
+          details.style.maxHeight = inner.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+
   // ---- Site-plan zoom (hover/hold magnifier + tap/click-to-open lightbox) ----
   function initSitePlanZoom() {
     var wrap = document.querySelector('[data-site-plan]');
@@ -451,5 +487,6 @@
     initInstallationsCarousel();
     initRevealObserver();
     initSitePlanZoom();
+    initScopeExpander();
   });
 })();
