@@ -691,14 +691,25 @@
       // ------------------------------------------------------------------
 
       // First frame: measure and write the per-card position vars.
-      // Second frame: flip on `is-ready` so the entrance keyframes start
-      // with FROM values that already reference the resolved vars.
+      // Then wait for the deck to scroll into view before firing the
+      // entrance animation (matches the rest of the site's reveal pattern).
       requestAnimationFrame(function () {
         layout();
         updateClickability();
-        requestAnimationFrame(function () {
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                stage.classList.add('is-ready');
+                io.unobserve(stage);
+              }
+            });
+          }, { threshold: 0.2 });
+          io.observe(stage);
+        } else {
+          // Fallback for browsers without IntersectionObserver.
           stage.classList.add('is-ready');
-        });
+        }
       });
     }
   }
