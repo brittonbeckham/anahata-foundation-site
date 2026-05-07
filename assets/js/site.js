@@ -760,6 +760,23 @@
     }
   }
 
+  // ---- Top-bar height (nav + email banner) for hero sizing ----
+  function initTopBarHeight() {
+    var root = document.documentElement;
+    function measure() {
+      var nav = document.querySelector('.nav');
+      var banner = document.querySelector('.email-banner');
+      var h = (nav ? nav.offsetHeight : 0) + (banner ? banner.offsetHeight : 0);
+      root.style.setProperty('--top-bar-height', h + 'px');
+    }
+    measure();
+    window.addEventListener('resize', measure);
+    window.addEventListener('orientationchange', measure);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(measure);
+    }
+  }
+
   // ---- Generic reveal-on-scroll observer ----
   // Adds .is-revealed to any element with .stack-reveal or .page-opener-reveal
   // when it enters the viewport. Fires once per element.
@@ -787,6 +804,7 @@
   }
 
   ready(function () {
+    initTopBarHeight();
     initNav();
     initEmailBanner();
     initParallax();

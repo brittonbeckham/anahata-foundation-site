@@ -13,5 +13,4 @@ Thumbs.db
 .vscode/
 .idea/
 .playwright-mcp/
-/mobile-*.png
-/desktop-*.png
+/*.png

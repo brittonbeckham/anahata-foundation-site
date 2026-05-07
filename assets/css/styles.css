@@ -145,12 +145,12 @@ a:hover { color: var(--sandstone-deep); border-bottom-color: var(--sandstone); }
 
 .eyebrow {
   font-family: var(--font-serif);
-  font-size: 0.78rem;
+  font-size: 1.25rem;
   font-style: italic;
+  font-weight: bold;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--sandstone-deep);
-  font-weight: 500;
   font-feature-settings: "lnum";
   margin-bottom: var(--s-2);
 }
@@ -314,12 +314,12 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  font-size: 3rem;
+  font-size: 2.9rem;
   font-weight: 400;
   line-height: 1.1;
 }
 @media (max-width: 600px) {
-  h2, .h2 { font-size: 2.5rem; }
+  h2, .h2 { font-size: 2.4rem; }
 }
 
 h3, .h3 {
@@ -486,6 +486,8 @@ section {
 .section-sandstone-deep a { border-bottom-color: rgba(244,237,225,0.3); }
 .section-pine a:hover,
 .section-sandstone-deep a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+.section-pine .pull-quote,
+.section-sandstone-deep .pull-quote { color: var(--paper); }
 
 /* Page-marker, pillar, and paragraph automatic restyling on dark backgrounds */
 .section-pine .page-marker,
@@ -829,8 +831,9 @@ section .shell-narrow img.site-plan-img {
   gap: var(--s-6);
   align-items: start;
 }
+.two-col-narrow.flip { grid-template-columns: 2fr 1fr; }
 @media (max-width: 800px) {
-  .two-col, .two-col-narrow { grid-template-columns: 1fr; gap: var(--s-4); }
+  .two-col, .two-col-narrow, .two-col-narrow.flip { grid-template-columns: 1fr; gap: var(--s-4); }
 }
 
 /* ===========================================================
@@ -1143,10 +1146,11 @@ section .shell-narrow img.site-plan-img {
   background-attachment: fixed;
 }
 @media (max-width: 800px) {
-  .hero { min-height: 560px; max-height: 720px; }
-}
-@media (max-width: 480px) {
-  .hero { min-height: 520px; max-height: 640px; }
+  .hero {
+    height: calc(100dvh - var(--top-bar-height, 180px));
+    min-height: calc(100dvh - var(--top-bar-height, 180px));
+    max-height: none;
+  }
 }
 .hero-img {
   position: absolute;
@@ -1204,8 +1208,8 @@ section .shell-narrow img.site-plan-img {
 .hero-meta {
   margin-top: var(--s-4);
   display: flex;
-  gap: var(--s-4);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.35rem;
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -1255,7 +1259,7 @@ section .shell-narrow img.site-plan-img {
   position: relative;
   background: var(--gradient-card-elevated);
   border-radius: 6px;
-  padding: var(--s-4) var(--s-4) var(--s-4) calc(var(--s-4) + 0.5rem);
+  padding: var(--s-2) var(--s-2) var(--s-2) calc(var(--s-2) + 0.5rem);
   box-shadow:
     0 1px 0 rgba(255,255,255,0.7) inset,
     0 14px 30px -22px rgba(26,22,18,0.18),
@@ -1742,12 +1746,10 @@ section .shell-narrow img.site-plan-img {
   line-height: 1.2;
   text-wrap: balance;
   color: var(--ink);
-  margin: var(--s-6) 0;
+  margin: 0 auto;
   padding: 0 var(--s-2);
   text-align: center;
   max-width: 24em;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* =========================================================
@@ -2049,6 +2051,7 @@ footer.site-foot .foot-legal {
   background: var(--paper-2);
   border: 1px dashed var(--rule);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -2062,6 +2065,60 @@ footer.site-foot .foot-legal {
 .placeholder.square { aspect-ratio: 1/1; }
 .placeholder.wide { aspect-ratio: 16/9; }
 
+/* Photo wrapper — stretches to text height in two-col-narrow contexts */
+.photo-frame {
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.5) inset,
+    0 18px 40px -22px rgba(26,22,18,0.35),
+    0 4px 12px -6px rgba(26,22,18,0.18);
+}
+.photo-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (min-width: 801px) {
+  .two-col-narrow .photo-frame {
+    align-self: stretch;
+    height: 100%;
+    min-height: 480px;
+  }
+  .two-col-narrow .photo-frame img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* Modifier: slow horizontal pan with gentle zoom */
+.photo-frame.is-panning img {
+  animation: photoPan 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes photoPan {
+  from { transform: scale(1.1) translateX(-1.5%); }
+  to   { transform: scale(1.1) translateX(1.5%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-frame.is-panning img { animation: none; transform: scale(1.05); }
+}
+
+.placeholder-label {
+  display: block;
+  margin-top: var(--s-3);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.coda-line {
+  font-style: italic;
+  color: var(--ink-soft);
+  margin-top: var(--s-4);
+}
+
 /* =========================================================
    Anchor scroll offset for sticky nav
    ========================================================= */
@@ -2074,23 +2131,32 @@ section[id] { scroll-margin-top: 70px; }
 }
 
 /* =========================================================
-   Welcome layout — body sits in a project-page-style narrow
-   column on the right; supplemental text floats in the
-   space to its left. No rules or headers on the left.
+   Welcome layout — center column matches the project-page
+   opener (shell-narrow page-opener-reveal) and stays centered
+   on the page; the Anahata definition floats in the left
+   margin without shifting the main column.
    ========================================================= */
 .welcome-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, var(--measure));
-  column-gap: var(--s-6);
+  grid-template-columns: minmax(0, 1fr) minmax(0, var(--measure)) minmax(0, 1fr);
+  column-gap: var(--s-4);
   align-items: start;
   max-width: var(--max);
   margin: 0 auto;
+  padding: 0 var(--gut);
 }
+.welcome-opener .page-marker { margin-top: 0; }
+
 .welcome-side {
   position: sticky;
   top: 110px;
-  padding: 0.4rem var(--s-3) 0 0;
-  text-align: right;
+  padding: var(--s-4) var(--s-4);
+  background: var(--paper-2);
+  border: 1px solid var(--rule-soft);
+  border-left: 3px solid var(--sandstone);
+  border-radius: 2px;
+  text-align: left;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px -14px rgba(26,22,18,0.18);
 }
 .welcome-side-pron {
   font-family: var(--font-serif);
@@ -2104,30 +2170,21 @@ section[id] { scroll-margin-top: 70px; }
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--ink-soft);
-  margin: 0 0 var(--s-3) 0;
+  margin: 0;
   text-wrap: pretty;
   font-style: normal;
 }
 .welcome-side-def em { font-style: italic; }
-.welcome-side-coda {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--gold-deep);
-  margin: 0;
-}
-.welcome-main { min-width: 0; }
-.welcome-main .page-marker { margin-top: 0; }
 
 @media (max-width: 900px) {
-  .welcome-grid { grid-template-columns: 1fr; max-width: var(--measure); }
+  .welcome-grid {
+    grid-template-columns: 1fr;
+    max-width: var(--measure);
+    padding: 0;
+  }
   .welcome-side {
     position: static;
-    text-align: left;
-    padding: 0 0 var(--s-4) 0;
-    border-bottom: 1px solid var(--rule);
-    margin-bottom: var(--s-5);
+    margin: 0 var(--s-4) var(--s-5);
   }
 }
 
