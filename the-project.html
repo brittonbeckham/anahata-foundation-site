@@ -2,7 +2,8 @@
 layout: default
 title: The Project
 nav_current: project
-description: The full vision of Anahata Foundation — the land, the philosophy, the structure, and the path from threshold to a center capable of serving tens of thousands.
+description: The full vision of Anahata Foundation — the land, the philosophy, the structure, and the path from
+threshold to a center capable of serving tens of thousands.
 ---
 <section id="project" data-screen-label="02 Project">
   <!-- Section opener -->
@@ -17,16 +18,15 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
         The Vision of the Anahata Foundation is a <span class="serif-script">tri-fold</span> installation:
         a New Earth Anchor, a Healing Center, and a Mystery School. What follows is the
         full vision &mdash; the land, the philosophy, the structure, and the path that leads
-        from where we stand today to a center capable of serving tens of thousands.
+        from where we stand today to a center capable of serving many thousands from the local and
+        greater community.
       </p>
     </div>
   </div>
 
   <!-- The Land -->
-  <div class="bleed-image bleed-image-fixed"
-       role="img"
-       aria-label="The upper meadow looking across to the Front Range"
-       style="background-image: url('{{ '/assets/media/anahata-upper-meadow.jpg' | relative_url }}');"></div>
+  <div class="bleed-image bleed-image-fixed" role="img" aria-label="The upper meadow looking across to the Front Range"
+    style="background-image: url('{{ '/assets/media/full-bleed/anahata-upper-meadow.jpg' | relative_url }}');"></div>
 
   <div class="section">
     <div class="shell">
@@ -37,7 +37,7 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
         <h2>A teacher, alive with all four elements.</h2>
         <div class="wide-prose-body">
           <p>
-            Anahata rests on forty-six acres of pristine mountain land roughly five miles north
+            Anahata rests on forty-six acres of pristine mountain land roughly four miles north
             of Lyons, Colorado, just inside Larimer County. The property is composed of a lower
             meadow of about sixteen acres and an upper meadow of thirty, joined by a dynamic
             ravine that climbs sixty feet between them. A river runs along the northern edge.
@@ -45,20 +45,36 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
             come to recognize as a powerful energy vortex.
           </p>
           <p>
-            The land is beyond the reach of city EMF and cellular signal. The energy here feels
+            The land is beyond the reach of city EMF and cellular signal. The energy feels
             clean, clear, and ancestral &mdash; there is evidence of a Native American camp on the
-            property. The residence is built into the hillside, fully off-grid, running on solar
-            and battery with backup generation, drawing water from a well into an eighteen-hundred-gallon
-            cistern. Eighteen-inch adobe walls keep the home cool in summer without active cooling,
-            warm in winter through radiant in-floor heat.
+            property.
+
+
           </p>
         </div>
       </div>
     </div>
 
     <!-- Land carousel -->
+    {% assign base = '/assets/media' | relative_url %}
     <div class="shell mt-lg">
-      {% include land-carousel.html %}
+      <div class="photo-carousel" data-photo-carousel>
+        <img src="{{ base }}/land/property-ariel-view.jpg" alt="Anahata under a stormy sky." />
+        <img src="{{ base }}/land/anahata-with-stormy-sky.jpg" alt="Anahata under a stormy sky." />
+        <img src="{{ base }}/land/tree-circle-inside.jpg" alt="Inside the cottonwood circle." />
+        <img src="{{ base }}/land/tree-swing.jpg" alt="Tree swing attached to a cottonwood." />
+        <img src="{{ base }}/land/river-2.jpg" alt="Where the rivers flows against red sandstone cliffs." />
+        <img src="{{ base }}/land/river.jpg" alt="The river along the property's north edge." />
+        <img src="{{ base }}/land/ravine-top.jpg" alt="View of the ravine." />
+        <img src="{{ base }}/land/ravine-inside.jpg" alt="Inside the ravine — a cathedral of stone and shadow." />
+        <img src="{{ base }}/land/native-grinding-bowl.jpg" alt="A Native American grinding bowl, found on the land." />
+        <img src="{{ base }}/land/gebo-rune.jpg" alt="Gebo — the rune of sacred exchange, marking the land." />
+        <img src="{{ base }}/land/elk-early-spring.jpg" alt="Elk in the meadow, early spring." />
+        <img src="{{ base }}/land/trampolene-and-green-field.jpg" alt="A trampoline at rest in the green field." />
+        <img src="{{ base }}/land/winter-front-covered-trees.jpg" alt="Hoarfrost on the cottonwoods, winter morning." />
+        <img src="{{ base }}/land/merlin.jpg" alt="Merlin, watching over the meadow." />
+        <img src="{{ base }}/land/sunset.jpg" alt="Sunset over the meadow." />
+      </div>
     </div>
 
     <div class="shell mt-md">
@@ -68,16 +84,16 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
           <div class="lab">Acres</div>
         </div>
         <div class="fact">
-          <div class="num">16 + 30</div>
-          <div class="lab">Lower &middot; Upper Meadows</div>
+          <div class="num">Four</div>
+          <div class="lab">Fire &middot; Water &middot; Air &middot; Earth</div>
         </div>
         <div class="fact">
-          <div class="num">60 ft</div>
-          <div class="lab">Ravine climb between</div>
+          <div class="num">EMF-free</div>
+          <div class="lab">Beyond city signal</div>
         </div>
         <div class="fact">
-          <div class="num">25 min</div>
-          <div class="lab">From Boulder &middot; 1 hr DEN</div>
+          <div class="num">25m / 1h</div>
+          <div class="lab">From Boulder / DEN</div>
         </div>
       </div>
     </div>
@@ -93,29 +109,31 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
         <h2>Built into the hillside, off-grid by design.</h2>
         <div class="wide-prose-body">
           <p>
-            The home is set partially into the hillside and runs entirely off-grid &mdash;
-            solar with battery storage and backup generation, well water drawn into an
-            eighteen-hundred-gallon cistern with full filtration. Eighteen-inch adobe walls
-            hold the house cool through summer without active cooling, and radiant in-floor
-            heat carries it through Colorado winters.
+            A large residence was built on the land when it was initially purchased in 1997. The design was styled 
+            after Santa Fe villas -- tile roof, stucco, and thick 18" exterior adobe walls. The builder followed a 
+            sustainability and made the home fully off-grid since inital construction. Running on modern solar and 
+            battery technology, there is backup generation already available. The well water here has been effectiviely 
+            running for over 30 years with no issues. The thick adobe walls keep the home cool in summer without active 
+            cooling, warm in winter through radiant in-floor heat.
           </p>
           <p>
             Seven bedrooms, five bathrooms, two kitchens, and several living spaces make
-            room for the family of six full-time alongside visiting guests, overnight retreats,
+            room for a stewarding family with the space to house visiting guests, overnight retreats,
             social events, and the intimate facilitation work of small-group gatherings. The
-            home feels earthy and grounded &mdash; eighteen inches of adobe between the work
-            and the world outside.
+            home feels earthy and grounded.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Photo placeholders — replace with real residence images -->
+    <!-- Residence photos — grid on desktop, carousel on mobile, single source of truth -->
+    {% assign base = '/assets/media' | relative_url %}
     <div class="shell mt-lg">
-      <div class="section-photos">
-        <div class="placeholder">Residence &mdash; exterior</div>
-        <div class="placeholder">Residence &mdash; interior gathering space</div>
-        <div class="placeholder">Residence &mdash; kitchen</div>
+      <div class="photo-carousel photo-carousel-grid-md" data-photo-carousel>
+        <img src="{{ base }}/residence/residence-front-double-rainbow.jpg" alt="The residence under a double rainbow." />
+        <img src="{{ base }}/residence/residence-backside.jpg" alt="Back side, set into the hillside." />
+        <img src="{{ base }}/residence/residence-solar-setup.jpg" alt="Fully sustainable, off-grid solar system." />
+        <img src="{{ base }}/residence/residence-interior-sound-healing.jpg" alt="Interior gathering space arranged for sound healing." />
       </div>
     </div>
 
@@ -126,12 +144,12 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
           <div class="lab">Bedrooms &middot; Bathrooms</div>
         </div>
         <div class="fact">
-          <div class="num">2</div>
-          <div class="lab">Kitchens &middot; Living spaces</div>
+          <div class="num">5500+</div>
+          <div class="lab">Square Feet</div>
         </div>
         <div class="fact">
           <div class="num">Off-grid</div>
-          <div class="lab">Solar &middot; Battery &middot; Backup</div>
+          <div class="lab">Solar &middot; Battery &middot; Generator</div>
         </div>
         <div class="fact">
           <div class="num">18&Prime;</div>
@@ -142,10 +160,9 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
   </div>
 
   <!-- Photo break (residence → philosophy) -->
-  <div class="bleed-image bleed-image-fixed"
-       role="img"
-       aria-label="The cottonwood tree circle on the lower meadow, late spring"
-       style="background-image: url('{{ '/assets/media/tree-circle.jpg' | relative_url }}');"></div>
+  <div class="bleed-image bleed-image-fixed" role="img"
+    aria-label="The cottonwood tree circle on the lower meadow, late spring"
+    style="background-image: url('{{ '/assets/media/full-bleed/tree-circle.jpg' | relative_url }}');"></div>
 
   <!-- Philosophy -->
   <div class="section">
@@ -222,49 +239,49 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
 
         <div class="deck-cards-layer">
           {% comment %} Card back decoration is identical for all 4 cards.
-             Defined once via Liquid capture to keep markup readable. {% endcomment %}
+          Defined once via Liquid capture to keep markup readable. {% endcomment %}
           {% capture card_back %}
-            <div class="deck-card-face deck-card-back">
-              <span class="deck-card-back-corner tl" aria-hidden="true">
-                <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2">
-                  <path d="M2 8 L2 2 L8 2"/>
-                  <path d="M5 5 L9 9"/>
-                  <circle cx="11" cy="11" r="1.4" fill="currentColor" stroke="none"/>
-                </svg>
-              </span>
-              <span class="deck-card-back-corner tr" aria-hidden="true">
-                <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2">
-                  <path d="M2 8 L2 2 L8 2"/>
-                  <path d="M5 5 L9 9"/>
-                  <circle cx="11" cy="11" r="1.4" fill="currentColor" stroke="none"/>
-                </svg>
-              </span>
-              <span class="deck-card-back-corner bl" aria-hidden="true">
-                <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2">
-                  <path d="M2 8 L2 2 L8 2"/>
-                  <path d="M5 5 L9 9"/>
-                  <circle cx="11" cy="11" r="1.4" fill="currentColor" stroke="none"/>
-                </svg>
-              </span>
-              <span class="deck-card-back-corner br" aria-hidden="true">
-                <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2">
-                  <path d="M2 8 L2 2 L8 2"/>
-                  <path d="M5 5 L9 9"/>
-                  <circle cx="11" cy="11" r="1.4" fill="currentColor" stroke="none"/>
-                </svg>
-              </span>
-              <span class="deck-card-back-word is-top">Anahata</span>
-              <span class="deck-card-back-mark" aria-hidden="true">
-                <svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M32 12 L49.3 42 L14.7 42 Z"/>
-                  <path d="M32 52 L14.7 22 L49.3 22 Z"/>
-                  <line x1="32" y1="12" x2="32" y2="52"/>
-                  <line x1="14.7" y1="22" x2="49.3" y2="42"/>
-                  <line x1="49.3" y1="22" x2="14.7" y2="42"/>
-                </svg>
-              </span>
-              <span class="deck-card-back-word is-bottom">Foundation</span>
-            </div>
+          <div class="deck-card-face deck-card-back">
+            <span class="deck-card-back-corner tl" aria-hidden="true">
+              <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M2 8 L2 2 L8 2" />
+                <path d="M5 5 L9 9" />
+                <circle cx="11" cy="11" r="1.4" fill="currentColor" stroke="none" />
+              </svg>
+            </span>
+            <span class="deck-card-back-corner tr" aria-hidden="true">
+              <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M2 8 L2 2 L8 2" />
+                <path d="M5 5 L9 9" />
+                <circle cx="11" cy="11" r="1.4" fill="currentColor" stroke="none" />
+              </svg>
+            </span>
+            <span class="deck-card-back-corner bl" aria-hidden="true">
+              <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M2 8 L2 2 L8 2" />
+                <path d="M5 5 L9 9" />
+                <circle cx="11" cy="11" r="1.4" fill="currentColor" stroke="none" />
+              </svg>
+            </span>
+            <span class="deck-card-back-corner br" aria-hidden="true">
+              <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M2 8 L2 2 L8 2" />
+                <path d="M5 5 L9 9" />
+                <circle cx="11" cy="11" r="1.4" fill="currentColor" stroke="none" />
+              </svg>
+            </span>
+            <span class="deck-card-back-word is-top">Anahata</span>
+            <span class="deck-card-back-mark" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M32 12 L49.3 42 L14.7 42 Z" />
+                <path d="M32 52 L14.7 22 L49.3 22 Z" />
+                <line x1="32" y1="12" x2="32" y2="52" />
+                <line x1="14.7" y1="22" x2="49.3" y2="42" />
+                <line x1="49.3" y1="22" x2="14.7" y2="42" />
+              </svg>
+            </span>
+            <span class="deck-card-back-word is-bottom">Foundation</span>
+          </div>
           {% endcapture %}
 
           <article class="deck-card" data-card="0">
@@ -272,15 +289,17 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
               {{ card_back }}
               <div class="deck-card-face deck-card-front">
                 <div class="pillar-icon" aria-hidden="true">
-                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M32 6 L34.4 22 L48 14 L37 26 L54 28 L37 30 L48 42 L34.4 34 L32 50 L29.6 34 L16 42 L27 30 L10 28 L27 26 L16 14 L29.6 22 Z"/>
-                    <circle cx="32" cy="28" r="3"/>
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M32 6 L34.4 22 L48 14 L37 26 L54 28 L37 30 L48 42 L34.4 34 L32 50 L29.6 34 L16 42 L27 30 L10 28 L27 26 L16 14 L29.6 22 Z" />
+                    <circle cx="32" cy="28" r="3" />
                   </svg>
                 </div>
                 <h4>Magick</h4>
                 <p>
                   The embodiment of conscious co-creation &mdash; aligning will, imagination, and emotion
-                  with universal law. The archaic <em>k</em> spelling connects us to the origins of this sacred art 
+                  with universal law. The archaic <em>k</em> spelling connects us to the origins of this sacred art
                   from stage illusion.
                 </p>
               </div>
@@ -292,17 +311,18 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
               {{ card_back }}
               <div class="deck-card-face deck-card-front">
                 <div class="pillar-icon" aria-hidden="true">
-                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round">
                     <!-- Flame: teardrop with pointed top -->
-                    <path d="M32 8 C 28 14 26 18 26 22 C 26 26 28 28 32 28 C 36 28 38 26 38 22 C 38 18 36 14 32 8 Z"/>
+                    <path d="M32 8 C 28 14 26 18 26 22 C 26 26 28 28 32 28 C 36 28 38 26 38 22 C 38 18 36 14 32 8 Z" />
                     <!-- Inner flame highlight -->
-                    <path d="M32 14 C 30 18 29 20 29 22 C 29 24 30 26 32 26"/>
+                    <path d="M32 14 C 30 18 29 20 29 22 C 29 24 30 26 32 26" />
                     <!-- Wick -->
-                    <line x1="32" y1="28" x2="32" y2="32"/>
+                    <line x1="32" y1="28" x2="32" y2="32" />
                     <!-- Candle body -->
-                    <rect x="24" y="32" width="16" height="20" rx="1"/>
+                    <rect x="24" y="32" width="16" height="20" rx="1" />
                     <!-- Surface -->
-                    <line x1="18" y1="54" x2="46" y2="54"/>
+                    <line x1="18" y1="54" x2="46" y2="54" />
                   </svg>
                 </div>
                 <h4>Ritual</h4>
@@ -320,21 +340,22 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
               {{ card_back }}
               <div class="deck-card-face deck-card-front">
                 <div class="pillar-icon" aria-hidden="true">
-                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M32 32 C 32 32, 28 18, 16 14 C 10 12, 8 18, 12 24 C 16 30, 28 32, 32 32 Z"/>
-                    <path d="M32 32 C 32 32, 36 18, 48 14 C 54 12, 56 18, 52 24 C 48 30, 36 32, 32 32 Z"/>
-                    <path d="M32 32 C 32 32, 26 42, 18 48 C 14 51, 16 56, 22 54 C 28 52, 32 44, 32 32 Z"/>
-                    <path d="M32 32 C 32 32, 38 42, 46 48 C 50 51, 48 56, 42 54 C 36 52, 32 44, 32 32 Z"/>
-                    <line x1="32" y1="10" x2="32" y2="32"/>
-                    <circle cx="32" cy="9" r="1.5"/>
-                    <circle cx="30" cy="5" r="1"/>
-                    <circle cx="34" cy="5" r="1"/>
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M32 32 C 32 32, 28 18, 16 14 C 10 12, 8 18, 12 24 C 16 30, 28 32, 32 32 Z" />
+                    <path d="M32 32 C 32 32, 36 18, 48 14 C 54 12, 56 18, 52 24 C 48 30, 36 32, 32 32 Z" />
+                    <path d="M32 32 C 32 32, 26 42, 18 48 C 14 51, 16 56, 22 54 C 28 52, 32 44, 32 32 Z" />
+                    <path d="M32 32 C 32 32, 38 42, 46 48 C 50 51, 48 56, 42 54 C 36 52, 32 44, 32 32 Z" />
+                    <line x1="32" y1="10" x2="32" y2="32" />
+                    <circle cx="32" cy="9" r="1.5" />
+                    <circle cx="30" cy="5" r="1" />
+                    <circle cx="34" cy="5" r="1" />
                   </svg>
                 </div>
                 <h4>Play</h4>
                 <p>
                   The frequency of creation. Curiosity, imagination, and lightness as a path &mdash;
-                  because laughter often opens the doors deeper into truth than effort and striving 
+                  because laughter often opens the doors deeper into truth than effort and striving
                   ever could.
                 </p>
               </div>
@@ -346,11 +367,15 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
               {{ card_back }}
               <div class="deck-card-face deck-card-front">
                 <div class="pillar-icon" aria-hidden="true">
-                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M44 18 A 18 18 0 1 0 46 46 A 14 14 0 1 1 44 18 Z"/>
-                    <path d="M18 16 L 19 19 L 22 20 L 19 21 L 18 24 L 17 21 L 14 20 L 17 19 Z" fill="currentColor" stroke="none"/>
-                    <path d="M52 30 L 53 32 L 55 33 L 53 34 L 52 36 L 51 34 L 49 33 L 51 32 Z" fill="currentColor" stroke="none"/>
-                    <path d="M14 42 L 15 44 L 17 45 L 15 46 L 14 48 L 13 46 L 11 45 L 13 44 Z" fill="currentColor" stroke="none"/>
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M44 18 A 18 18 0 1 0 46 46 A 14 14 0 1 1 44 18 Z" />
+                    <path d="M18 16 L 19 19 L 22 20 L 19 21 L 18 24 L 17 21 L 14 20 L 17 19 Z" fill="currentColor"
+                      stroke="none" />
+                    <path d="M52 30 L 53 32 L 55 33 L 53 34 L 52 36 L 51 34 L 49 33 L 51 32 Z" fill="currentColor"
+                      stroke="none" />
+                    <path d="M14 42 L 15 44 L 17 45 L 15 46 L 14 48 L 13 46 L 11 45 L 13 44 Z" fill="currentColor"
+                      stroke="none" />
                   </svg>
                 </div>
                 <h4>Astrology</h4>
@@ -389,9 +414,11 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
           </p>
         </div>
         <div>
-          <div class="site-plan-wrap" data-site-plan role="button" tabindex="0" aria-label="Open site plan at full size">
+          <div class="site-plan-wrap" data-site-plan role="button" tabindex="0"
+            aria-label="Open site plan at full size">
             <div class="site-plan-hint site-plan-hint-touch">Hold to magnify &middot; tap for full size</div>
-            <img class="site-plan-img no-shadow" src="{{ '/assets/media/anahata-map.jpg' | relative_url }}" alt="Aerial site plan of Anahata's lower meadow with each named space marked: tree circle, yurts, moon bath cove, chakra path, ceremonial firepit, riverside sauna, ravine entrance" />
+            <img class="site-plan-img no-shadow" src="{{ '/assets/media/anahata-map.jpg' | relative_url }}"
+              alt="Aerial site plan of Anahata's lower meadow with each named space marked: tree circle, yurts, moon bath cove, chakra path, ceremonial firepit, riverside sauna, ravine entrance" />
             <div class="site-plan-hint site-plan-hint-hover">Hover to magnify &middot; click for full size</div>
           </div>
           <div class="caption">Lower meadow site plan &mdash; current planning draft.</div>
@@ -406,21 +433,22 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
       <div class="page-marker">
         <span class="num">06</span><span class="label">The installations</span>
       </div>
-      <h2>Each space, crafted with intention.</h2>
-      <p class="measure-prose mb-lg">
-        Fifteen installations across three categories &mdash; facilitation spaces where ceremony
-        and teaching happen, energetic land and art installations that hold the field, and play areas
-        that activate joy and embodied aliveness for child and adult humans alike. Step through each at your own pace.
-      </p>
+      <div class="section-head-split mb-md">
+        <h2>Each space, crafted with intention.</h2>
+        <p>
+          Fifteen installations across three categories &mdash; facilitation spaces where ceremony
+          and teaching happen, energetic land and art installations that hold the field, and play areas
+          that activate joy and embodied aliveness for child and adult humans alike. Step through each at your own pace.
+        </p>
+      </div>
       {% include installations-carousel.html %}
     </div>
   </div>
 
   <!-- Photo break -->
-  <div class="bleed-image bleed-image-fixed"
-       role="img"
-       aria-label="A stone circle on the upper meadow, lichen-covered red sandstone among grasses"
-       style="background-image: url('{{ '/assets/media/stone-circle.jpg' | relative_url }}');"></div>
+  <div class="bleed-image bleed-image-fixed" role="img"
+    aria-label="Sunset over the meadow"
+    style="background-image: url('{{ '/assets/media/full-bleed/sunset-2.jpg' | relative_url }}');"></div>
 
   <!-- Five Scopes -->
   <div class="section">
@@ -430,16 +458,17 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
       </div>
       <h2>How the vision unfolds, in five movements.</h2>
       <p class="measure-prose mb-lg">
-        Anahata is being built across five distinct phases. Each one builds upon the last.
-        We are at the threshold of <span class="serif-script">Scope I</span> &mdash; the
-        acquisition of the land into permanent nonprofit stewardship.
+        Anahata is being built across five distinct phases or scopes. Each one builds upon the last.
+        The project is seeking the sponsorships for <span class="serif-script">Scopes I & II</span> &mdash; the
+        acquisition of the land into permanent nonprofit stewardship and the begging of transforming it into its
+        magical three-fold mission.
       </p>
 
       <div class="scopes">
         <div class="scope-row current" data-scope-row tabindex="0" role="button" aria-expanded="false">
           <div class="scope-row-summary">
             <div>
-              <div class="scope-num">01</div>
+              <div class="scope-num">I</div>
             </div>
             <div>
               <div class="tag">&mdash; Currently Seeking Principal Stewards &mdash;</div>
@@ -455,11 +484,8 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
           <div class="scope-row-details">
             <div class="scope-row-details-inner">
               <ul>
-                <li>Acquisition of the 46-acre property and residence into permanent nonprofit stewardship</li>
-                <li>Formation of the Colorado 501(c)(3) with religious and educational protections</li>
-                <li>Completion of unfinished renovations and outstanding maintenance</li>
-                <li>Off-grid power capacity expansion and full electrical code compliance</li>
-                <li>Landscape restoration &mdash; retaining walls, irrigation, planting, beautification</li>
+                <li>Acquisition of the 46-acre property and formation of the Colorado 501(c)(3) with religious and educational protections</li>
+                <li>Renovations, code compliance, and landscape restoration to ready the residence for full operation</li>
                 <li>Three-year operating reserve so Scope II can begin without external pressure</li>
               </ul>
             </div>
@@ -468,7 +494,7 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
 
         <div class="scope-row" data-scope-row tabindex="0" role="button" aria-expanded="false">
           <div class="scope-row-summary">
-            <div class="scope-num">02</div>
+            <div class="scope-num">II</div>
             <div>
               <div class="scope-name">Activation</div>
               <div class="scope-meta">~$542K &middot; 18&ndash;24 months</div>
@@ -482,15 +508,10 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
           <div class="scope-row-details">
             <div class="scope-row-details-inner">
               <ul>
-                <li>Primary yurt &mdash; 27&ndash;30 ft, year-round insulated facilitation space (25&ndash;30 people)</li>
-                <li>Secondary yurt &mdash; smaller, Mongolian-style for intimate small-group work</li>
-                <li>Tipi &mdash; open-air, earth-connected space for ancestral and seasonal practices</li>
-                <li>Moon bath cove &mdash; thermal-siphon soaking baths in a riverside crescent</li>
-                <li>Riverside sauna &mdash; mobile, wood-fired</li>
-                <li>Ceremonial firepit, the portal, and a communal pavilion</li>
+                <li>Primary and secondary yurts, tipi, and a wood-fired riverside sauna for facilitation</li>
+                <li>Moon bath cove, ceremonial firepit, communal pavilion, and the Portal threshold installation</li>
                 <li>Energetic land markers &mdash; chakra path, labyrinth, stone circle, zen garden, geometry garden</li>
-                <li>Play zones &mdash; nature-based playground and a 600 ft zipline</li>
-                <li>Pathways, parking, bathrooms, and grass field for community flow</li>
+                <li>Play zones &mdash; nature-based playground and a 600 ft zipline, plus pathways, parking, and bathrooms</li>
               </ul>
             </div>
           </div>
@@ -498,7 +519,7 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
 
         <div class="scope-row" data-scope-row tabindex="0" role="button" aria-expanded="false">
           <div class="scope-row-summary">
-            <div class="scope-num">03</div>
+            <div class="scope-num">III</div>
             <div>
               <div class="scope-name">Expansion</div>
               <div class="scope-meta">Multi-purpose pavilion</div>
@@ -511,10 +532,8 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
           <div class="scope-row-details">
             <div class="scope-row-details-inner">
               <ul>
-                <li>Multi-purpose pavilion or barn-like structure on the upper meadow</li>
-                <li>Capacity for small concerts, large group ceremonies, and regional gatherings</li>
-                <li>Waldorf-inspired and earth-based programming for young children</li>
-                <li>Single and multi-night retreat accommodations</li>
+                <li>Multi-purpose pavilion on the upper meadow for concerts, large ceremonies, and regional gatherings</li>
+                <li>Waldorf-inspired and earth-based programming for young children, with retreat accommodations</li>
                 <li>Possible acquisition of an adjacent partitioned property to accelerate the build</li>
               </ul>
             </div>
@@ -523,7 +542,7 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
 
         <div class="scope-row" data-scope-row tabindex="0" role="button" aria-expanded="false">
           <div class="scope-row-summary">
-            <div class="scope-num">04</div>
+            <div class="scope-num">IV</div>
             <div>
               <div class="scope-name">World-Schooling Hub</div>
               <div class="scope-meta">3&ndash;8 week residencies</div>
@@ -537,10 +556,8 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
           <div class="scope-row-details">
             <div class="scope-row-details-inner">
               <ul>
-                <li>Onsite residence for visiting world-schooling families (up to six souls)</li>
-                <li>3&ndash;8 week residencies integrated with Anahata's offerings</li>
+                <li>Onsite residence for visiting world-schooling families with 3&ndash;8 week residencies</li>
                 <li>Priority access for visiting children to Mystery School and Healing Center programs</li>
-                <li>Bridge between spiritual transmission and grounded academic learning</li>
                 <li>Integration with global world-schooling networks for international reach</li>
               </ul>
             </div>
@@ -549,7 +566,7 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
 
         <div class="scope-row" data-scope-row tabindex="0" role="button" aria-expanded="false">
           <div class="scope-row-summary">
-            <div class="scope-num">05</div>
+            <div class="scope-num">V</div>
             <div>
               <div class="scope-name">New Earth Community</div>
               <div class="scope-meta">Tiny home village</div>
@@ -562,10 +579,8 @@ description: The full vision of Anahata Foundation — the land, the philosophy,
           <div class="scope-row-details">
             <div class="scope-row-details-inner">
               <ul>
-                <li>Mobile tiny home village under Larimer County RV-use code</li>
-                <li>Subdivided 10-acre vacant lot supporting rotating tiny home residency</li>
-                <li>Short-term stays for retreat participants and ceremony integration</li>
-                <li>Long-term aligned residents serving as part-time stewards of the land</li>
+                <li>Mobile tiny home village on a subdivided 10-acre lot under Larimer County RV-use code</li>
+                <li>Short-term retreat stays alongside long-term aligned residents serving as part-time stewards</li>
                 <li>A living prototype for replicable conscious community models</li>
               </ul>
             </div>

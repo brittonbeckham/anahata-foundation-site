@@ -1,7 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="#b15a3c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M32 12 L49.3 42 L14.7 42 Z" />
-  <path d="M32 52 L14.7 22 L49.3 22 Z" />
-  <line x1="32" y1="12" x2="32" y2="52" />
-  <line x1="14.7" y1="22" x2="49.3" y2="42" />
-  <line x1="49.3" y1="22" x2="14.7" y2="42" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g1" x1="0.15" y1="0.1" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#dc8260"/>
+      <stop offset="1" stop-color="#a04d33"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0.1" y1="0.1" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#a04d33"/>
+      <stop offset="1" stop-color="#5a2814"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0.1" y1="0.1" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#ecb195"/>
+      <stop offset="1" stop-color="#c96a4a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 1: large upward triangle (base of lower tetrahedron) -->
+  <polygon points="32,0 59.68,48 4.32,48" fill="url(#g1)" stroke="#5a2814" stroke-width="0.8" stroke-linejoin="round"/>
+
+  <!-- Layer 2: large inverted triangle on top — its fill hides Layer 1's interior edges -->
+  <polygon points="32,64 4.32,16 59.68,16" fill="url(#g2)" stroke="#5a2814" stroke-width="0.8" stroke-linejoin="round"/>
+
+  <!-- Layer 3: small upward triangle (apex / top face) -->
+  <polygon points="32,19.2 43.2,38.4 20.8,38.4" fill="url(#g3)" stroke="#5a2814" stroke-width="0.8" stroke-linejoin="round"/>
+
+  <!-- 3D edge lines radiating from centroid out to Layer 1's corners -->
+  <line x1="32" y1="32" x2="32" y2="0" stroke="#5a2814" stroke-width="0.8" stroke-linecap="round"/>
+  <line x1="32" y1="32" x2="59.68" y2="48" stroke="#5a2814" stroke-width="0.8" stroke-linecap="round"/>
+  <line x1="32" y1="32" x2="4.32" y2="48" stroke="#5a2814" stroke-width="0.8" stroke-linecap="round"/>
 </svg>

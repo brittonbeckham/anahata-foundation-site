@@ -275,6 +275,15 @@ a:hover { color: var(--sandstone-deep); border-bottom-color: var(--sandstone); }
   margin: 0;
   font-size: 0.95rem;
 }
+.contact-card-link {
+  margin: var(--s-3) 0 0 0;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+}
+.contact-card-link a {
+  border-bottom-color: var(--sandstone);
+  color: var(--sandstone-deep);
+}
 
 /* Divider ornament inner text */
 .divider-ornament-text {
@@ -503,34 +512,7 @@ section {
 /* Carousel card sits on its own light bg — keep body text ink-colored */
 .section-pine .ic-card p,
 .section-sandstone-deep .ic-card p { color: var(--ink); }
-/* Carousel controls on dark sections — arrows, counter, dots, group labels */
-.section-pine .ic-arrow,
-.section-sandstone-deep .ic-arrow {
-  color: var(--paper);
-  border-color: rgba(244, 237, 225, 0.4);
-}
-.section-pine .ic-arrow:hover,
-.section-sandstone-deep .ic-arrow:hover {
-  color: var(--gold);
-  border-color: var(--gold);
-  background: rgba(255, 220, 150, 0.08);
-}
-.section-pine .ic-counter,
-.section-sandstone-deep .ic-counter {
-  color: rgba(244, 237, 225, 0.7);
-}
-.section-pine .ic-counter-current,
-.section-sandstone-deep .ic-counter-current {
-  color: var(--gold);
-}
-.section-pine .ic-counter-sep,
-.section-sandstone-deep .ic-counter-sep {
-  color: rgba(244, 237, 225, 0.3);
-}
-.section-pine .ic-groups,
-.section-sandstone-deep .ic-groups {
-  border-top-color: rgba(244, 237, 225, 0.2);
-}
+/* Installation carousel on dark sections — group labels and dots */
 .section-pine .ic-group-label,
 .section-sandstone-deep .ic-group-label {
   color: rgba(244, 237, 225, 0.75);
@@ -720,11 +702,28 @@ section .shell-narrow img.site-plan-img {
   grid-template-columns: repeat(3, 1fr);
   gap: var(--s-3);
 }
-@media (max-width: 800px) {
-  .section-photos { grid-template-columns: 1fr; }
+.section-photos-four {
+  grid-template-columns: repeat(2, 1fr);
 }
 .section-photos .placeholder {
   aspect-ratio: 4 / 3;
+}
+.section-photos img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 800px) {
+  .section-photos,
+  .section-photos-four { grid-template-columns: 1fr; }
+}
+
+/* Responsive show/hide utilities — for swapping layouts at the 800px breakpoint */
+.show-sm-only { display: none; }
+@media (max-width: 800px) {
+  .show-md-up { display: none; }
+  .show-sm-only { display: block; }
 }
 
 .divider {
@@ -816,6 +815,25 @@ section .shell-narrow img.site-plan-img {
 @media (max-width: 900px) {
   .wide-prose { grid-template-columns: 1fr; gap: var(--s-4); }
   .wide-prose > h2 { position: static; }
+}
+
+/* Section head with title left, intro paragraph right — for compact
+   carousel/grid sections where the stacked title+intro takes too much
+   vertical room. Not a replacement for wide-prose; no sticky behavior. */
+.section-head-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  column-gap: var(--s-6);
+  align-items: end;
+}
+.section-head-split > h2 { margin: 0; }
+.section-head-split > p { margin: 0; max-width: 38rem; }
+@media (max-width: 900px) {
+  .section-head-split {
+    grid-template-columns: 1fr;
+    row-gap: var(--s-3);
+    align-items: start;
+  }
 }
 
 /* Two-column editorial */
@@ -920,6 +938,203 @@ section .shell-narrow img.site-plan-img {
   .email-banner-form input { min-width: 0; flex: 1; }
 }
 
+/* =========================================================
+   MailerLite embed — restyled to match the dark email banner.
+   MailerLite injects its own CSS with !important and ID-prefixed
+   selectors; we override with scoped !important rules.
+   ========================================================= */
+.email-banner-form-slot {
+  flex: 0 1 auto;
+  min-width: 260px;
+}
+.email-banner .ml-form-embedContainer,
+.email-banner .ml-form-embedWrapper,
+.email-banner .ml-form-embedWrapper.embedForm,
+.email-banner .ml-form-embedWrapper.embedDefault,
+.email-banner .ml-form-embedWrapper.embedPopup {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  max-width: none !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.email-banner .ml-form-embedBody,
+.email-banner .ml-form-embedBody.ml-form-embedBodyHorizontal,
+.email-banner .ml-form-successBody {
+  padding: 0 !important;
+  background: transparent !important;
+}
+.email-banner .ml-form-embedContent {
+  display: none !important;
+}
+.email-banner .ml-form-formContent,
+.email-banner .ml-form-formContent.horozintalForm,
+.email-banner .ml-form-checkboxRow {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+.email-banner .ml-form-horizontalRow {
+  margin: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: stretch !important;
+  border: 1px solid rgba(244, 237, 225, 0.22) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  transition: border-color 0.2s ease, background 0.2s ease !important;
+  height: auto !important;
+  float: none !important;
+}
+.email-banner .ml-form-horizontalRow:focus-within {
+  border-color: rgba(244, 237, 225, 0.55) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+.email-banner .ml-input-horizontal {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  float: none !important;
+  display: flex !important;
+}
+.email-banner .ml-input-horizontal .horizontal-fields {
+  width: 100% !important;
+  padding: 0 !important;
+  float: none !important;
+}
+.email-banner .ml-field-group,
+.email-banner .ml-field-email {
+  width: 100% !important;
+}
+.email-banner .ml-form-fieldRow,
+.email-banner .ml-form-fieldRow.ml-last-item {
+  margin: 0 !important;
+  width: 100% !important;
+}
+.email-banner .ml-form-horizontalRow input,
+.email-banner .ml-form-fieldRow input {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  color: var(--paper) !important;
+  padding: 0.5rem 0.95rem !important;
+  font-family: var(--font-serif) !important;
+  font-size: 0.98rem !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em !important;
+  line-height: 21px !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  box-shadow: none !important;
+}
+.email-banner .ml-form-horizontalRow input::placeholder,
+.email-banner .ml-form-fieldRow input::placeholder {
+  color: rgba(244, 237, 225, 0.38) !important;
+  font-style: italic !important;
+}
+.email-banner .ml-form-horizontalRow input::-webkit-input-placeholder,
+.email-banner .ml-form-fieldRow input::-webkit-input-placeholder {
+  color: rgba(244, 237, 225, 0.38) !important;
+  font-style: italic !important;
+}
+.email-banner .ml-button-horizontal {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  float: none !important;
+  padding-top: 0 !important;
+}
+.email-banner .ml-button-horizontal button,
+.email-banner .ml-form-horizontalRow button,
+.email-banner .ml-form-embedSubmit button,
+.email-banner .ml-mobileButton-horizontal button {
+  background: var(--gradient-cta) !important;
+  background-color: var(--sandstone) !important;
+  border: 0 !important;
+  color: var(--paper) !important;
+  padding: 0.5rem 1.25rem !important;
+  font-family: var(--font-display) !important;
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  border-radius: 0 !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset !important;
+  line-height: 21px !important;
+  transition: background 0.2s ease, filter 0.2s ease !important;
+  height: auto !important;
+  width: auto !important;
+  margin: 0 !important;
+}
+.email-banner .ml-button-horizontal button:hover,
+.email-banner .ml-form-horizontalRow button:hover,
+.email-banner .ml-form-embedSubmit button:hover,
+.email-banner .ml-mobileButton-horizontal button:hover {
+  background: var(--gradient-cta-hover) !important;
+  filter: brightness(1.05) !important;
+}
+.email-banner .ml-form-embedSubmit {
+  margin: 0 !important;
+  width: 100% !important;
+  float: none !important;
+}
+.email-banner .ml-form-embedSubmit button.loading {
+  display: none !important;
+}
+/* Success state */
+.email-banner .ml-form-successBody {
+  text-align: left !important;
+}
+.email-banner .ml-form-successContent {
+  margin: 0 !important;
+  text-align: left !important;
+}
+.email-banner .ml-form-successContent h4 {
+  color: var(--gold) !important;
+  font-family: var(--font-display) !important;
+  font-style: italic !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  margin: 0 0 0.2rem 0 !important;
+  text-align: left !important;
+}
+.email-banner .ml-form-successContent p {
+  color: rgba(244, 237, 225, 0.78) !important;
+  font-family: var(--font-serif) !important;
+  font-style: italic !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+@media (max-width: 720px) {
+  .email-banner-form-slot { width: 100%; min-width: 0; }
+}
+@media only screen and (max-width: 400px) {
+  /* MailerLite hides the inline button below 400px and shows
+     .ml-mobileButton-horizontal instead. Match that fallback. */
+  .email-banner .ml-form-horizontalRow {
+    border-radius: 10px !important;
+  }
+  .email-banner .ml-mobileButton-horizontal {
+    display: block !important;
+    width: 100% !important;
+    margin: 0.5rem 0 0 0 !important;
+  }
+  .email-banner .ml-mobileButton-horizontal button {
+    border-radius: 10px !important;
+    padding: 0.65rem 1rem !important;
+    width: 100% !important;
+  }
+}
+
 .nav {
   position: sticky;
   top: 0;
@@ -991,6 +1206,11 @@ section .shell-narrow img.site-plan-img {
   font-size: 1.0rem;
   letter-spacing: 0;
 }
+/* Drawer header, per-link blurbs, and backdrop are mobile-only —
+   hidden on desktop. The mobile @media block below re-enables them. */
+.nav-drawer-head { display: none; }
+.nav-backdrop { display: none; }
+.nav-link-blurb { display: none; }
 .nav-links a {
   border: 0;
   color: var(--ink);
@@ -1050,7 +1270,7 @@ section .shell-narrow img.site-plan-img {
   background: transparent;
   cursor: pointer;
   padding: 0;
-  z-index: 110;
+  z-index: 200;
 }
 .nav-toggle-bar {
   position: absolute;
@@ -1060,9 +1280,11 @@ section .shell-narrow img.site-plan-img {
   background: var(--ink);
   transition: transform 0.3s ease, opacity 0.2s ease, top 0.3s ease;
 }
-.nav-toggle-bar:nth-child(1) { top: 17px; }
-.nav-toggle-bar:nth-child(2) { top: 25px; }
+.nav-toggle-bar:nth-child(1) { top: 15px; }
+.nav-toggle-bar:nth-child(2) { top: 21px; }
+.nav-toggle-bar:nth-child(3) { top: 27px; }
 .nav-toggle-bar.a { top: 21px; transform: rotate(45deg); }
+.nav-toggle-bar.fade { opacity: 0; }
 .nav-toggle-bar.b { top: 21px; transform: rotate(-45deg); }
 
 @media (max-width: 800px) {
@@ -1085,47 +1307,113 @@ section .shell-narrow img.site-plan-img {
     top: 0;
     right: 0;
     bottom: 0;
-    width: 88%;
-    max-width: 380px;
+    width: 92%;
+    max-width: 420px;
     background: var(--gradient-paper);
     border-left: 1px solid var(--rule);
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
     gap: 0;
-    padding: 5.5rem 1.75rem 2rem;
+    padding: 4.5rem 1.5rem 2rem;
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: -20px 0 60px -20px rgba(26,22,18,0.25);
     z-index: 100;
+    overflow-y: auto;
   }
   .nav-links.open { transform: translateX(0); }
-  .nav-links a {
+
+  /* Brand header inside the drawer */
+  .nav-drawer-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--sandstone);
+  }
+  .nav-drawer-merkaba {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.4rem;
+  }
+  .nav-drawer-name {
+    font-family: var(--font-serif);
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .nav-drawer-tag {
     font-family: var(--font-display);
-    font-size: 1.5rem;
-    letter-spacing: 0.02em;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    color: var(--sandstone-deep);
+  }
+
+  /* Each link: title + blurb stacked */
+  .nav-links a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
     padding: 1rem 0;
     border-bottom: 1px solid var(--rule);
     color: var(--ink);
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
   }
+  .nav-links a:last-of-type { border-bottom: 0; }
+  .nav-link-title {
+    display: block;
+    font-size: 1.35rem;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .nav-link-blurb {
+    display: block;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+    text-wrap: pretty;
+  }
+  .nav-links a.is-current .nav-link-title { color: var(--sandstone-deep); }
+  .nav-links a.is-current .nav-link-blurb { color: var(--sandstone-deep); opacity: 0.85; }
+
   .nav-links a.cta {
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
     text-align: center;
     border: 0;
-    font-size: 1rem;
-    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+    padding: 0.95rem 1.5rem;
+    align-items: center;
+    align-self: stretch;
   }
 
-  /* Backdrop when drawer is open */
-  .nav.is-open::before {
-    content: "";
+  /* Backdrop — real element so it can be tapped to close */
+  .nav-backdrop {
+    display: none;
     position: fixed;
     inset: 0;
     background: rgba(26,22,18,0.45);
     backdrop-filter: blur(2px);
     z-index: 90;
+    cursor: pointer;
   }
+  .nav.is-open .nav-backdrop {
+    display: block;
+  }
+
 }
+
 
 /* =========================================================
    Hero
@@ -1139,7 +1427,6 @@ section .shell-narrow img.site-plan-img {
   width: 100%;
   overflow: hidden;
   background-color: var(--ink);
-  background-image: url('/assets/media/anahata-land.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1593,8 +1880,10 @@ section .shell-narrow img.site-plan-img {
     transform 0.35s ease;
   outline: none;
 }
-.scope-row:hover {
-  transform: scale(1.008);
+@media (hover: hover) {
+  .scope-row:hover {
+    transform: scale(1.008);
+  }
 }
 .scope-row-summary {
   display: grid;
@@ -1607,8 +1896,8 @@ section .shell-narrow img.site-plan-img {
   font-style: italic;
   font-size: 2.6rem;
   color: var(--sandstone-deep);
-  font-feature-settings: "lnum";
   line-height: 1;
+  letter-spacing: 0.04em;
   transition: color 0.35s ease;
 }
 .scope-row .scope-name {
@@ -1624,11 +1913,11 @@ section .shell-narrow img.site-plan-img {
   transition: color 0.35s ease;
 }
 
-/* Activated style — applied to .current AND on hover.
-   Card-elevated lift only, no radial sandstone glow. */
+/* Always-on elevated style — for the .current scope and any expanded row.
+   On mobile, the elevation now means "this row is open" (since hover
+   styles are gated to hover-capable devices below). */
 .scope-row.current,
-.scope-row:hover,
-.scope-row:focus-visible {
+.scope-row.is-expanded {
   background: var(--gradient-card-elevated);
   border-radius: 6px;
   box-shadow:
@@ -1637,11 +1926,22 @@ section .shell-narrow img.site-plan-img {
     0 2px 6px -3px rgba(26,22,18,0.06);
   border-bottom-color: transparent;
 }
-.scope-row:hover .scope-num {
-  color: var(--sandstone);
-}
-.scope-row:hover .scope-body {
-  color: var(--ink);
+
+/* Hover/keyboard-focus elevations only on devices that actually have
+   hover (mouse). Prevents "sticky hover" on touch. */
+@media (hover: hover) {
+  .scope-row:hover,
+  .scope-row:focus-visible {
+    background: var(--gradient-card-elevated);
+    border-radius: 6px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 14px 30px -22px rgba(26,22,18,0.18),
+      0 2px 6px -3px rgba(26,22,18,0.06);
+    border-bottom-color: transparent;
+  }
+  .scope-row:hover .scope-num { color: var(--sandstone); }
+  .scope-row:hover .scope-body { color: var(--ink); }
 }
 
 /* Expand/collapse chevron at right edge of each row */
@@ -1714,18 +2014,36 @@ section .shell-narrow img.site-plan-img {
   margin-bottom: 0.5rem;
 }
 @media (max-width: 760px) {
+  /* Mobile layout: number + name share the first row, then meta, then body.
+     Wrapper divs are flattened with display: contents so children
+     participate directly in the grid. */
   .scope-row-summary {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "num name"
+      "meta meta"
+      "body body";
+    column-gap: 0.7rem;
+    row-gap: 0.3rem;
+    align-items: baseline;
   }
-  .scope-row .scope-num { font-size: 2rem; }
-  .scope-row .scope-name { font-size: 1.5rem; }
-  .scope-row .scope-body { font-size: 1rem; }
+  .scope-row-summary > div:not(.scope-body) { display: contents; }
+  .scope-row .scope-num { grid-area: num; font-size: 2.2rem; }
+  .scope-row .scope-name { grid-area: name; font-size: 1.5rem; }
+  .scope-row .scope-meta { grid-area: meta; }
+  .scope-row .scope-body { grid-area: body; font-size: 1rem; margin-top: 0.4rem; }
+  /* Currently Seeking tag: hide on mobile — the arrow indicator carries the meaning */
+  .scope-row.current .tag { display: none; }
+  /* Keep the arrow indicator visible on mobile; size it down so it doesn't crowd */
+  .scope-row.current::before {
+    display: block;
+    border-width: 10px 0 10px 14px;
+    left: -0.5rem;
+  }
   .scope-row {
     padding: var(--s-3) calc(var(--s-3) + 1.2rem) var(--s-3) var(--s-3);
   }
   .scope-row::after { top: var(--s-3); }
-  .scope-row.current::before { display: none; }
 }
 
 /* Detail caption — used under photos */
@@ -1845,14 +2163,14 @@ section .shell-narrow img.site-plan-img {
 }
 
 /* =========================================================
-   Land Carousel
+   Photo Carousel (reusable — used by land + residence sections)
    ========================================================= */
 
-.land-carousel {
+.photo-carousel {
   position: relative;
   outline: none;
 }
-.land-carousel-frame {
+.photo-carousel-frame {
   position: relative;
   border-radius: 6px;
   overflow: hidden;
@@ -1862,21 +2180,25 @@ section .shell-narrow img.site-plan-img {
     0 24px 50px -28px rgba(26,22,18,0.4),
     0 6px 14px -8px rgba(26,22,18,0.2);
 }
-.land-carousel-track {
+.photo-carousel-track {
   display: flex;
   width: 100%;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  scroll-snap-type: x mandatory;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
 }
-.land-slide {
+.photo-carousel-track.is-dragging { cursor: grabbing; }
+.photo-carousel-track img { -webkit-user-drag: none; user-select: none; pointer-events: none; }
+.photo-slide {
   flex: 0 0 100%;
   margin: 0;
   position: relative;
-  scroll-snap-align: start;
   overflow: hidden;
 }
-.land-slide img {
+.photo-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1887,12 +2209,12 @@ section .shell-narrow img.site-plan-img {
   border-radius: 0 !important;
   box-shadow: none !important;
 }
-.land-slide.is-active img {
+.photo-slide.is-active img {
   transform: scale(1.05);
 }
 
 /* Arrows */
-.land-arrow {
+.photo-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -1911,17 +2233,17 @@ section .shell-narrow img.site-plan-img {
   transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
   z-index: 2;
 }
-.land-arrow:hover {
+.photo-arrow:hover {
   background: rgba(177,90,60,0.85);
   border-color: rgba(244,237,225,0.6);
   transform: translateY(-50%) scale(1.06);
 }
-.land-arrow svg { width: 22px; height: 22px; }
-.land-arrow-prev { left: 1rem; }
-.land-arrow-next { right: 1rem; }
+.photo-arrow svg { width: 22px; height: 22px; }
+.photo-arrow-prev { left: 1rem; }
+.photo-arrow-next { right: 1rem; }
 
 /* Meta row */
-.land-carousel-meta {
+.photo-carousel-meta {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -1930,14 +2252,14 @@ section .shell-narrow img.site-plan-img {
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--rule);
 }
-.land-caption {
+.photo-caption {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 0.85rem;
   color: var(--ink-soft);
   flex: 1;
 }
-.land-counter {
+.photo-counter {
   font-family: var(--font-serif);
   font-feature-settings: "lnum";
   font-size: 0.82rem;
@@ -1945,19 +2267,19 @@ section .shell-narrow img.site-plan-img {
   color: var(--ink-mute);
   white-space: nowrap;
 }
-.land-counter-current {
+.photo-counter-current {
   color: var(--sandstone-deep);
   font-weight: 500;
 }
 
 /* Dots */
-.land-dots {
+.photo-dots {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
   margin-top: var(--s-3);
 }
-.land-dot,
+.photo-dot,
 .ic-dot {
   width: 28px;
   height: 4px;
@@ -1969,11 +2291,11 @@ section .shell-narrow img.site-plan-img {
   transition: background 0.25s ease, width 0.25s ease;
   appearance: none;
 }
-.land-dot:hover,
+.photo-dot:hover,
 .ic-dot:hover {
   background: var(--ink-mute);
 }
-.land-dot.is-active,
+.photo-dot.is-active,
 .ic-dot.is-active {
   background: var(--sandstone-deep);
   width: 44px;
@@ -1981,11 +2303,42 @@ section .shell-narrow img.site-plan-img {
 }
 
 @media (max-width: 700px) {
-  .land-carousel-track { aspect-ratio: 4 / 3; }
-  .land-arrow { width: 38px; height: 38px; }
-  .land-arrow-prev { left: 0.5rem; }
-  .land-arrow-next { right: 0.5rem; }
-  .land-carousel-meta { flex-direction: column; gap: 0.4rem; }
+  .photo-carousel-track { aspect-ratio: 4 / 3; }
+  .photo-arrow { width: 38px; height: 38px; }
+  .photo-arrow-prev { left: 0.5rem; }
+  .photo-arrow-next { right: 0.5rem; }
+  .photo-carousel-meta { flex-direction: column; gap: 0.4rem; }
+}
+
+/* Responsive grid modifier — on desktop render as a 2-column grid with
+   no carousel chrome; below 800px falls through to the normal carousel. */
+@media (min-width: 801px) {
+  .photo-carousel-grid-md .photo-carousel-frame {
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .photo-carousel-grid-md .photo-carousel-track {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    aspect-ratio: auto;
+    gap: var(--s-3);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .photo-carousel-grid-md .photo-slide { flex: none; scroll-snap-align: none; }
+  .photo-carousel-grid-md .photo-slide img {
+    aspect-ratio: 3 / 2;
+    border-radius: 4px;
+    transform: none;
+  }
+  .photo-carousel-grid-md .photo-slide.is-active img { transform: none; }
+  .photo-carousel-grid-md .photo-arrow,
+  .photo-carousel-grid-md .photo-dots,
+  .photo-carousel-grid-md .photo-carousel-meta {
+    display: none;
+  }
 }
 
 /* =========================================================
@@ -2273,7 +2626,6 @@ section[id] { scroll-margin-top: 70px; }
   justify-content: center;
   overflow: hidden;
   isolation: isolate;
-  background-image: url('/assets/media/winter-trees.jpg');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -2417,29 +2769,114 @@ section[id] { scroll-margin-top: 70px; }
 .installations-carousel {
   outline: none;
 }
-.installations-carousel:focus-visible .ic-card {
-  box-shadow: 0 0 0 2px var(--sandstone), 0 30px 60px -30px rgba(26,22,18,0.18);
+
+/* Peeking-card viewport: track is translated by JS for explicit
+   smooth animation on drag/swipe. Viewport clips overflow only.
+   touch-action: pan-y lets the page scroll vertically while keeping
+   horizontal touch motion captured by our pointer-event drag. */
+.ic-viewport {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  cursor: grab;
+  outline: none;
+  /* Soft fade on the peek edges so partials feel intentional */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+.ic-viewport.is-dragging { cursor: grabbing; }
+
+/* Floating prev/next arrows — visible on touch/mobile only. On desktop
+   the drag interaction is enough. */
+.ic-nav {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(244, 237, 225, 0.92);
+  color: var(--ink);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: background 0.2s ease, transform 0.15s ease;
+  padding: 0;
+}
+.ic-nav:hover { background: var(--paper); }
+.ic-nav:active { transform: translateY(-50%) scale(0.94); }
+.ic-nav-prev { left: 12px; }
+.ic-nav-next { right: 12px; }
+.ic-nav svg { width: 18px; height: 18px; }
+.ic-nav[disabled] { opacity: 0.35; cursor: default; }
+.ic-viewport:focus-visible .ic-card.is-active {
+  box-shadow: 0 0 0 2px var(--sandstone), 0 30px 60px -30px rgba(26,22,18,0.22);
 }
 
-.ic-card {
-  display: grid;
-  grid-template-columns: 1fr 0.85fr;
-  gap: var(--s-6);
+.ic-track {
+  display: flex;
   align-items: stretch;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+}
+
+/* Card layout: image fills the right ~60% as a background layer,
+   with a paper-colored gradient fading over its left edge so the
+   text reads cleanly while overlapping the image slightly. */
+.ic-card {
+  flex: 0 0 80%;
+  position: relative;
+  height: 400px;
   background: var(--paper);
   border: 1px solid var(--rule);
   border-radius: 4px;
-  padding: var(--s-5) var(--s-6);
-  box-shadow: 0 30px 60px -40px rgba(26,22,18,0.22);
-  transition: box-shadow 0.4s ease;
-  min-height: 380px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -32px rgba(26,22,18,0.22);
+  transition: opacity 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0.5;
+}
+.ic-card.is-active {
+  opacity: 1;
+  box-shadow: 0 30px 60px -30px rgba(26,22,18,0.32);
+}
+
+/* Gradient mask over the figure — paper at left, fading to clear
+   image on the right. Lives above the figure, below the text. */
+.ic-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Solid paper covers card up to image edge (40%); fades over the
+     first ~10% of the image so the image is fully visible by 46%. */
+  background: linear-gradient(
+    90deg,
+    var(--paper) 0%,
+    var(--paper) 40%,
+    rgba(244, 237, 225, 0) 46%
+  );
+  z-index: 2;
+  pointer-events: none;
 }
 
 .ic-text {
+  position: relative;
+  z-index: 3;
+  width: 50%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  padding: 0.4rem 0;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: var(--s-5);
 }
 
 .ic-eyebrow {
@@ -2490,32 +2927,42 @@ section[id] { scroll-margin-top: 70px; }
   font-size: clamp(1.7rem, 2.6vw, 2.4rem);
   line-height: 1.05;
   letter-spacing: 0.005em;
-  color: var(--ink);
+  color: #0d0a07;
   margin: 0 0 0.4rem 0;
   font-weight: 400;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
 .ic-body {
   font-family: var(--font-serif);
   font-size: 1.08rem;
   line-height: 1.55;
-  color: var(--ink);
+  color: #1a140e;
   margin: 0;
   text-wrap: pretty;
   max-width: 36em;
+  text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.85);
 }
+
+.ic-eyebrow { text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12); }
 
 .ic-figure {
   margin: 0;
-  position: relative;
+  position: absolute;
+  inset: 0 0 0 40%;
+  z-index: 1;
   background: linear-gradient(135deg, oklch(91% 0.018 70) 0%, oklch(86% 0.025 50) 100%);
-  border-radius: 3px;
   overflow: hidden;
-  min-height: 320px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: stretch;
+}
+.ic-figure img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
 }
 .ic-figure img {
   width: 100%;
@@ -2565,56 +3012,8 @@ section[id] { scroll-margin-top: 70px; }
   opacity: 1;
 }
 .ic-figcaption {
-  position: relative;
-  z-index: 3;
-  margin-top: auto;
-  padding: 0.85rem 1rem;
-  background: linear-gradient(180deg, rgba(26,22,18,0) 0%, rgba(26,22,18,0.55) 100%);
-  font-family: var(--font-display);
-  font-style: italic;
-  color: var(--paper);
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
+  display: none;
 }
-
-.ic-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s-4);
-  margin-top: var(--s-5);
-}
-.ic-arrow {
-  appearance: none;
-  background: transparent;
-  border: 1px solid var(--rule);
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ink-mute);
-  cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-}
-.ic-arrow:hover {
-  color: var(--sandstone-deep);
-  border-color: var(--sandstone);
-  background: rgba(177,90,60,0.04);
-}
-.ic-arrow svg { width: 16px; height: 16px; }
-
-.ic-counter {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  letter-spacing: 0.22em;
-  color: var(--ink-mute);
-  min-width: 5em;
-  text-align: center;
-}
-.ic-counter-current { color: var(--sandstone-deep); font-weight: 500; }
-.ic-counter-sep { color: var(--rule); margin: 0 0.2em; }
 
 .ic-groups {
   display: flex;
@@ -2622,8 +3021,6 @@ section[id] { scroll-margin-top: 70px; }
   justify-content: center;
   gap: var(--s-4);
   margin-top: var(--s-4);
-  padding-top: var(--s-4);
-  border-top: 1px solid var(--rule-soft, var(--rule));
 }
 .ic-group {
   display: flex;
@@ -2644,45 +3041,81 @@ section[id] { scroll-margin-top: 70px; }
   display: flex;
   gap: 0.5rem;
 }
-/* .ic-dot styling unified with .land-dot — see top of carousel rules */
+/* .ic-dot styling unified with .photo-dot — see top of carousel rules */
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .ic-card {
-    padding: var(--s-4) var(--s-5);
-    gap: var(--s-5);
-    min-height: 360px;
-  }
-  .ic-figure { min-height: 280px; }
+  .ic-card { height: 380px; }
 }
 
-/* Mobile — stack image above text */
+/* Mobile — split-card design. Image on top, paper text panel below.
+   No overlay, no contrast guessing. The body text is too long for the
+   hero-overlay pattern, so text gets its own readable surface. */
 @media (max-width: 720px) {
   .ic-card {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    padding: var(--s-4);
-    gap: var(--s-4);
-    min-height: 0;
-  }
-  .ic-figure,
-  .ic-text {
-    min-width: 0;
-    max-width: 100%;
+    flex: 0 0 88%;
+    height: auto;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
   .ic-figure {
-    grid-row: 1;
-    min-height: 220px;
-    aspect-ratio: 16 / 10;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 220px;
+    flex-shrink: 0;
   }
-  .ic-text { grid-row: 2; }
-  .ic-name { font-size: 1.7rem; }
-  .ic-body { font-size: 1rem; }
+  /* Drop the gradient overlay — image and text are now physically separated */
+  .ic-card::after { display: none; }
+  .ic-text {
+    width: 100%;
+    height: auto;
+    flex: 1 1 auto;
+    padding: var(--s-4);
+    background: var(--paper);
+    color: var(--ink);
+    justify-content: flex-start;
+    text-shadow: none;
+  }
+  /* Reset to dark text on paper (was white-on-image for the old design) */
+  .section-sandstone-deep .ic-card .ic-name,
+  .section-pine .ic-card .ic-name {
+    color: #0d0a07;
+    text-shadow: none;
+  }
+  .section-sandstone-deep .ic-card .ic-body,
+  .section-pine .ic-card .ic-body {
+    color: #1a140e;
+    text-shadow: none;
+  }
+  .section-sandstone-deep .ic-card .ic-eyebrow,
+  .section-pine .ic-card .ic-eyebrow { text-shadow: none; }
+  .section-sandstone-deep .ic-card .ic-eyebrow .ic-cat,
+  .section-pine .ic-card .ic-eyebrow .ic-cat { color: var(--sandstone-deep); }
+  .section-sandstone-deep .ic-card .ic-eyebrow .ic-size,
+  .section-pine .ic-card .ic-eyebrow .ic-size { color: var(--ink-mute); }
+  .ic-name { font-size: 1.55rem; }
+  .ic-body { font-size: 0.95rem; line-height: 1.5; }
+  /* Single-row indicators: drop the category labels, keep dots compact */
   .ic-groups {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    gap: var(--s-3);
+    justify-content: center;
+    gap: 0.5rem;
   }
+  .ic-group { flex-direction: row; gap: 0.4rem; }
+  .ic-group-label { display: none; }
+  .ic-dots { gap: 0.35rem; }
+  /* Show floating nav arrows on touch screens; center over the image */
+  .ic-nav {
+    display: flex;
+    top: 110px;
+    transform: translateY(-50%);
+  }
+  .ic-nav:active { transform: translateY(-50%) scale(0.94); }
 }
 
 /* =========================================================

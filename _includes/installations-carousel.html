@@ -1,5 +1,5 @@
 {% assign base = '/assets/media' | relative_url %}
-<div class="installations-carousel" tabindex="0" aria-roledescription="carousel" aria-label="Anahata installations" data-installations-carousel>
+<div class="installations-carousel" data-installations-carousel>
   <script type="application/json" data-installations-data>
 [
   {"name":"Primary Yurt","category":"Facilitation","size":"27–30 ft · holds 25–30","image":"{{ base }}/yurt.jpg","body":"The main gathering and facilitation space of the Lower Meadow. A permanent, insulated structure from Colorado Yurt Company, built for year-round use with a wood-burning stove. Its circular form supports group coherence — it is the core classroom of the Mystery School and the primary site for larger ceremonies and retreats."},
@@ -8,7 +8,7 @@
   {"name":"Moon Bath Cove","category":"Facilitation","size":"Riverside · crescent form","image":"{{ base }}/moon-bath-cove-pending.jpg","body":"A crescent-shaped cove with sandy beach and river rocks — formed by the great flood of 2013. Handmade thermal-siphon soaking baths arranged in a moon crescent, with a central altar made from a tree trunk recovered from the same flood. A potent area for moon-aligned ceremony, ritual release, and intentional life redirection."},
   {"name":"Riverside Sauna","category":"Facilitation","size":"Mobile · wood-fired","image":"{{ base }}/riverside-sauna-pending.jpg","body":"A wood-fired sauna set on a towable trailer — mobile so it can be positioned along the river's edge where flowing water supports nervous-system regulation, and so it stays compliant with county flood-zone restrictions. A gentle, powerful container for somatic unwinding and integration after ceremony."},
   {"name":"Ceremonial Firepit","category":"Facilitation","size":"Communal · ritual-aligned","image":"{{ base }}/fire-pit.jpg","body":"One of Anahata's central gathering points — designed for group work aligned with astrological timings, elemental cycles, and collective intention-setting. Fire here is a transformational element: a place to release outdated beliefs and emotional residue into the flames, and to ignite new pathways within."},
-  {"name":"The Portal","category":"Facilitation","size":"Threshold installation","image":"{{ base }}/the-portal.png","body":"An active component of change. The Portal creates an environment where individuals can step through life's inflection points — what some call timeline shifts, or moments of death and rebirth — into a new reality. The more we shape our environment to our intention, the more charge our aligned action carries."},
+  {"position":"65% 35%","name":"The Portal","category":"Facilitation","size":"Threshold installation","image":"{{ base }}/the-portal.png","body":"An active component of change. The Portal creates an environment where individuals can step through life's inflection points — what some call timeline shifts, or moments of death and rebirth — into a new reality. The more we shape our environment to our intention, the more charge our aligned action carries."},
   {"name":"Pavilion","category":"Facilitation","size":"Communal hub","image":"{{ base }}/pavilion-pending.jpg","body":"The central hub for communal connection — designed for shared meals, relaxed gatherings, and group conversation between sessions. With space for tables, seating, and simple utilities, the pavilion also supports educational activities, art projects, and informal workshops. A grounded, welcoming anchor point in the flow of retreats."},
   {"name":"Chakra Path","category":"Land Marker","size":"≈ 900 sq ft · built 2024","image":"{{ base }}/chakra-path-aerial.jpg","body":"An energy earth-work designed to clear the energy centers of an intention-centered person as they move through its focal points. Built in 2024 in collaboration with Karen of Energetic Geometry, it amplifies subtle energy through sacred solar geometry and underground water currents. Stones were sourced directly from the land."},
   {"name":"Labyrinth","category":"Land Marker","size":"Single inward path","image":"{{ base }}/labyrinth.png","body":"A meditative walking structure with one intentional path leading inward and back outward — its rhythm naturally slows the mind and synchronizes breath and movement. The spiral geometry mirrors patterns found in plants, shells, and galaxies. A contemplative threshold preparing individuals for ceremony, integration, or teachings elsewhere on the land."},
@@ -20,36 +20,15 @@
 ]
   </script>
 
-  <div class="ic-card">
-    <div class="ic-text">
-      <div class="ic-eyebrow">
-        <span class="ic-cat" data-ic-cat></span>
-        <span class="ic-sep">&middot;</span>
-        <span class="ic-size" data-ic-size></span>
-      </div>
-      <h3 class="ic-name" data-ic-name></h3>
-      <p class="ic-body" data-ic-body></p>
-    </div>
-
-    <figure class="ic-figure ic-figure-loading" aria-hidden="true" data-ic-figure>
-      <img alt="" loading="lazy" data-ic-img />
-      <figcaption class="ic-figcaption" data-ic-figcaption></figcaption>
-    </figure>
-  </div>
-
-  <div class="ic-controls">
-    <button class="ic-arrow" aria-label="Previous installation" data-ic-prev>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+  <div class="ic-viewport" tabindex="0" aria-roledescription="carousel" aria-label="Anahata installations" data-ic-viewport>
+    <ul class="ic-track" data-ic-track></ul>
+    <button class="ic-nav ic-nav-prev" type="button" aria-label="Previous installation" data-ic-prev>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M15 18 L9 12 L15 6"/>
       </svg>
     </button>
-    <div class="ic-counter">
-      <span class="ic-counter-current" data-ic-current>01</span>
-      <span class="ic-counter-sep"> / </span>
-      <span class="ic-counter-total" data-ic-total>15</span>
-    </div>
-    <button class="ic-arrow" aria-label="Next installation" data-ic-next>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <button class="ic-nav ic-nav-next" type="button" aria-label="Next installation" data-ic-next>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M9 6 L15 12 L9 18"/>
       </svg>
     </button>

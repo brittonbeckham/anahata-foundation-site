@@ -11,13 +11,43 @@
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
       <span class="nav-toggle-bar"></span>
       <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
     </button>
     <div class="nav-links" data-nav-links>
-      <a href="{{ '/the-project/' | relative_url }}" class="nav-keep{% if current == 'project' %} is-current{% endif %}" data-nav-close>The Project</a>
-      <a href="{{ '/vision-holders/' | relative_url }}" class="{% if current == 'vision-holders' %}is-current{% endif %}" data-nav-close>Vision Holders</a>
-      <a href="{{ '/community/' | relative_url }}" class="{% if current == 'community' %}is-current{% endif %}" data-nav-close>Community</a>
-      <a href="{{ '/updates/' | relative_url }}" class="{% if current == 'updates' %}is-current{% endif %}" data-nav-close>Updates</a>
+      <div class="nav-drawer-head" aria-hidden="true">
+        <svg class="nav-drawer-merkaba" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 12 L49.3 42 L14.7 42 Z" />
+          <path d="M32 52 L14.7 22 L49.3 22 Z" />
+          <line x1="32" y1="12" x2="32" y2="52" />
+          <line x1="14.7" y1="22" x2="49.3" y2="42" />
+          <line x1="49.3" y1="22" x2="14.7" y2="42" />
+        </svg>
+        <div class="nav-drawer-name">Anahata Foundation</div>
+        <div class="nav-drawer-tag">Healing &middot; Remembrance &middot; Awakening</div>
+      </div>
+
+      <a href="{{ '/the-project/' | relative_url }}" class="nav-keep{% if current == 'project' %} is-current{% endif %}" data-nav-close>
+        <span class="nav-link-title">The Project</span>
+        <span class="nav-link-blurb">The land, the philosophy, the four pillars, the five scopes of unfolding.</span>
+      </a>
+      <a href="{{ '/vision-holders/' | relative_url }}" class="{% if current == 'vision-holders' %}is-current{% endif %}" data-nav-close>
+        <span class="nav-link-title">Vision Holders</span>
+        <span class="nav-link-blurb">Britton &amp; Carolee Beckham &mdash; stewards, parents, walkers of the path that led here.</span>
+      </a>
+      <a href="{{ '/community/' | relative_url }}" class="{% if current == 'community' %}is-current{% endif %}" data-nav-close>
+        <span class="nav-link-title">Community</span>
+        <span class="nav-link-blurb">The Front Range context &mdash; ready for an anchor that does not yet exist.</span>
+      </a>
+      <a href="{{ '/updates/' | relative_url }}" class="{% if current == 'updates' %}is-current{% endif %}" data-nav-close>
+        <span class="nav-link-title">Updates</span>
+        <span class="nav-link-blurb">News from the project as it takes form.</span>
+      </a>
+      <a href="{{ '/contact/' | relative_url }}" class="{% if current == 'contact' %}is-current{% endif %}" data-nav-close>
+        <span class="nav-link-title">Contact</span>
+        <span class="nav-link-blurb">Email, address, and how to reach us.</span>
+      </a>
       <a href="{{ '/get-involved/' | relative_url }}" class="cta{% if current == 'get-involved' %} is-current{% endif %}" data-nav-close>Get Involved</a>
     </div>
   </div>
+  <div class="nav-backdrop" data-nav-close aria-hidden="true"></div>
 </nav>
